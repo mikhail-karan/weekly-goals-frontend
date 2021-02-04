@@ -7,7 +7,7 @@
       <router-link to="/register" class="text-sm">{{
         goal.User.username
       }}</router-link>
-      <div class="text-sm">{{ weekCalculation() }} days remaining</div>
+      <div class="text-sm">{{ weekCalculation() }} days remaininga</div>
     </div>
     <div class="flex w-full justify-center text-lg">{{ goal.weeklyGoal }}</div>
     <div class="flex w-full flex-row justify-end">

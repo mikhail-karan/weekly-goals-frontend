@@ -173,8 +173,8 @@
                     Register
                   </button>
                   <p v-if="error" class="mt-1 text-xs italic text-red-500">
-                        {{error}}
-                      </p>
+                    {{error}}
+                  </p>
                 </form>
                 <p class="mt-8 text-center text-white">
                   Already have an account?
@@ -240,7 +240,7 @@ export default {
         })
         .catch((error) => {
           // Handle error.
-          console.log("An error occurred:", error.response);
+          console.log("An error occurred:", error);
         });
     },
   },
