@@ -1,11 +1,12 @@
 <template>
-  <div class="flex flex-row text-white h-1/6">
+  <div class="flex flex-row text-white h-1/6 xs:h-1/5">
     <div
       class="flex flex-row items-center w-full justify-between w-1/2 mt-11 mx-9"
     >
-      <h1 class="text-5xl" @click="$router.push('/')">Weekly Growth Goals</h1>
-      <h2 v-if="authenticated" class="text-2xl flex flex-row">
+      <h1 class="text-5xl xs:text-4xl" @click="$router.push('/')">Weekly Growth Goals</h1>
+      <h2 v-if="auth" class="text-2xl flex flex-row">
         <span
+        @click="$router.push('/addgoal')"
           ><i
             class="las la-plus pr-2 transition duration-300 ease-in-out cursor-pointer hover:text-purple-600 transform hover:scale-110"
           ></i></span
@@ -19,8 +20,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'Header',
+  computed:{
+    auth: function(){
+      return this.$store.getters.getToken
+    }
+  }
+};
 </script>
-
+  
 <style>
 </style>
