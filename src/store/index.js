@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import axios from 'axios'
 
 const store = createStore({
   state () {
@@ -20,6 +21,7 @@ const store = createStore({
       commit('set_user', user)
     },
     setToken({commit}, token){
+      axios.defaults.headers.common = {'Authorization': 'Bearer ' + token}
       commit('set_token', token)
     }
   },
