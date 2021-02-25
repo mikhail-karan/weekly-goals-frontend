@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-row flex-wrap pt-8"> 
-    <WeeklyGoal v-for="goal in weeklyGoals" :key="goal.id" :goal="goal" />
+    <WeeklyGoal @click="$router.push({name: 'goal', params: {id: goal.id}})" v-for="goal in weeklyGoals" :key="goal.id" :goal="goal" />
     <!-- <WeeklyGoal />
     <WeeklyGoal />
     <WeeklyGoal /> -->
@@ -23,6 +23,7 @@ export default {
     axios.get('http://localhost:1337/weekly-goals')
     .then(res => {
       console.log(res.data)
+      debugger
       this.weeklyGoals = res.data
     })
   }

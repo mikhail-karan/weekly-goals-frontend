@@ -13,7 +13,7 @@
           <div class="text-sm">7 Days</div>
         </div>
         <!-- <div class="flex w-full justify-center text-lg">This is a test weekly goal</div> -->
-        <textarea
+        <!-- <textarea
           rows="2"
           ref="goalInput"
           name="goal"
@@ -21,7 +21,8 @@
           class="w-3/4 xs:w-5/6 m-auto bg-primary border-primary text-white p-2 outline-none focus:border-purple-500 border-2"
           placeholder="Enter weekly goal"
           id=""
-        />
+        /> -->
+        <div class="w-3/4 xs:w-5/6 m-auto bg-primary border-primary text-white p-2 outline-none focus:border-purple-500 border-2">{{weeklyGoal.weeklyGoal}}</div>
         <div class="flex w-full flex-row justify-end">
           <!-- <div v-show="editable" class="text-2xl flex items-center">
             <i class="las la-check mr-2"></i>
@@ -46,13 +47,16 @@
 import axios from 'axios'
 import WeeklyGoal from '../components/WeeklyGoal.vue'
 export default {
-  name: "AddGoal",
+  name: "Goal",
   data(){
     return {
-      goal: '',
+      weeklyGoal: {},
       usersGoals: [],
       user: {}
     }
+  },
+  props: {
+    goalId: String
   },
   components: {
     WeeklyGoal
@@ -61,7 +65,7 @@ export default {
     addGoal(){
       let payload = {
         User: this.$store.getters.getUser,
-        weeklyGoal: this.goal
+        weeklyGoal: {}
       }
       debugger
       axios.post('http://localhost:1337/weekly-goals', payload)
@@ -82,13 +86,18 @@ export default {
     }
   },
   mounted() {
-    this.$refs.goalInput.focus();
     this.user = this.$store.getters.getUser
     axios.get('http://localhost:1337/weekly-goals?User.id='+ this.user.id)
     .then(res => {
       console.log(res.data)
       debugger
       this.usersGoals = res.data
+    })
+    axios.get('http://localhost:1337/weekly-goals/'+ this.$route.params.id)
+    .then(res => {
+      console.log(res.data)
+      debugger
+      this.weeklyGoal = res.data
     })
 
   },

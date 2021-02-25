@@ -12,8 +12,11 @@
           ></i></span
         ><span class="hover:underline cursor-pointer hover:text-purple-600">my goals</span>
       </h2>
-      <h2 v-else class="text-2xl flex flex-row"><span @click="$router.push('/register')" class="hover:underline cursor-pointer hover:text-purple-600">Login/Register</span>
-      </h2>
+      <div v-else  class="flex flex-row items-end">
+        <h2 class="text-2xl text-purple-400 flex flex-row mr-3"><span @click="$router.push('/register')" class="hover:underline cursor-pointer hover:text-purple-600">register</span> </h2>
+        <h3 class="text-lg flex flex-row"><span @click="$router.push('/login')" class="hover:underline cursor-pointer hover:text-purple-600">login</span></h3>
+      </div>
+      
       <!-- <p class="w-1/2 mt-4 xs:hidden ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora beatae, excepturi enim nostrum officiis recusandae blanditiis quae adipisci ullam provident rem tempore quasi ea suscipit aperiam neque dolores aliquid incidunt!</p> -->
     </div>
   </div>
