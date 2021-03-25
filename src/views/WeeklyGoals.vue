@@ -23,10 +23,9 @@ export default {
     axios.get('http://localhost:1337/weekly-goals')
     .then(res => {
       console.log(res.data)
-      debugger
-      this.weeklyGoals = res.data
+      this.weeklyGoals = res.data.reverse()
     })
-  }
+  },
 }
 </script>
 

@@ -32,7 +32,7 @@
             @click="addGoal"
             class="text-2xl w-10 h-10 xs:w-9 xs:h-9 rounded-full shadow-md flex justify-center items-center bg-purple-500 transition duration-300 ease-in-out hover:bg-purple-600 transform hover:-translate-y-1 hover:scale-110"
           >
-            <i class="las la-plus"></i>
+            <i class="las la-hands-helping"></i>
           </div>
         </div>
       </div>
@@ -52,7 +52,8 @@ export default {
     return {
       weeklyGoal: {},
       usersGoals: [],
-      user: {}
+      user: {},
+      daysRemaining: 0
     }
   },
   props: {
@@ -62,12 +63,19 @@ export default {
     WeeklyGoal
   },
   methods: {
+    weekCalculation(createdAt) {
+      const createdAtStr = Date.parse(createdAt);
+      const oneDay = 24 * 60 * 60 * 1000;
+      const today = Date.now();
+      const daysSinceCreated = (today - createdAtStr)/oneDay
+      const daysRemaining = Math.round(7 - daysSinceCreated)
+      return daysRemaining;
+    },
     addGoal(){
       let payload = {
         User: this.$store.getters.getUser,
         weeklyGoal: {}
       }
-      debugger
       axios.post('http://localhost:1337/weekly-goals', payload)
       
       .then(res => {
@@ -75,7 +83,6 @@ export default {
         axios.get('http://localhost:1337/weekly-goals?User.id='+ this.user.id)
         .then(res => {
           console.log(res.data)
-          debugger
           this.usersGoals = res.data
           this.goal = ''
         })
@@ -86,19 +93,25 @@ export default {
     }
   },
   mounted() {
-    this.user = this.$store.getters.getUser
-    axios.get('http://localhost:1337/weekly-goals?User.id='+ this.user.id)
-    .then(res => {
-      console.log(res.data)
-      debugger
-      this.usersGoals = res.data
-    })
+    // this.user = this.$store.getters.getUser
+    // axios.get('http://localhost:1337/weekly-goals?User.id='+ this.user.id)
+    // .then(res => {
+    //   console.log(res.data)
+    //   this.usersGoals = res.data
+    // })
     axios.get('http://localhost:1337/weekly-goals/'+ this.$route.params.id)
     .then(res => {
       console.log(res.data)
-      debugger
       this.weeklyGoal = res.data
+      this.daysRemaining = 
+      this.user = res.data.User
+      axios.get('http://localhost:1337/weekly-goals?User.id='+ res.data.User.id)
+      .then(res => {
+        console.log(res.data)
+        this.usersGoals = res.data
+      })
     })
+    
 
   },
   computed: {

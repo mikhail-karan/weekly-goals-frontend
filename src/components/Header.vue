@@ -3,7 +3,7 @@
     <div
       class="flex flex-row items-center w-full justify-between w-1/2 mt-11 mx-9"
     >
-      <h1 class="text-5xl xs:text-4xl" @click="$router.push('/')">Weekly Growth Goals</h1>
+      <h1 class="text-5xl xs:text-4xl cursor-pointer" @click="$router.push('/')">Weekly Growth Goals</h1>
       <h2 v-if="auth" class="text-2xl flex flex-row">
         <span
         @click="$router.push('/addgoal')"

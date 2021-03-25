@@ -6,7 +6,8 @@
       <router-link to="/register" class="text-sm">{{
         goal.User.username
       }}</router-link>
-      <div class="text-sm">{{ weekCalculation() }} days remaining</div>
+      <div v-if="daysRemaining > 0" class="text-sm">{{ daysRemaining }} days remaining</div>
+      <div v-else class="text-sm">expired</div>
     </div>
     <div class="flex w-full justify-center text-lg">{{ goal.weeklyGoal }}</div>
     <div class="flex w-full flex-row justify-end">
@@ -28,10 +29,14 @@ export default {
   data() {
     return {
       editable: true,
+      daysRemaining: 0
     };
   },
   props: {
     goal: Object,
+  },
+  mounted(){
+    this.daysRemaining = this.weekCalculation()
   },
   methods: {
     weekCalculation() {
