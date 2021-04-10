@@ -5,12 +5,13 @@
     >
       <h1 class="text-5xl xs:text-4xl cursor-pointer" @click="$router.push('/')">Weekly Growth Goals</h1>
       <h2 v-if="auth" class="text-2xl flex flex-row">
+        <!-- <span class="mr-2">{{user.username}}</span> -->
         <span
         @click="$router.push('/addgoal')"
           ><i
             class="las la-plus pr-2 transition duration-300 ease-in-out cursor-pointer hover:text-purple-600 transform hover:scale-110"
           ></i></span
-        ><span class="hover:underline cursor-pointer hover:text-purple-600">my goals</span>
+        ><span class="hover:underline cursor-pointer hover:text-purple-600">{{user.username}}</span>
       </h2>
       <div v-else  class="flex flex-row items-end">
         <h2 class="text-2xl text-purple-400 flex flex-row mr-3"><span @click="$router.push('/register')" class="hover:underline cursor-pointer hover:text-purple-600">register</span> </h2>
@@ -28,6 +29,9 @@ export default {
   computed:{
     auth: function(){
       return this.$store.getters.getToken
+    },
+    user: function(){
+      return this.$store.getters.getUser
     }
   }
 };

@@ -10,7 +10,8 @@
           class="flex bg-primary w-full flex-row justify-between text-gray-300"
         >
           <router-link to="/register" class="text-sm">{{user.username}}</router-link>
-          <div class="text-sm">7 Days</div>
+          <div v-if="daysRemaining > 0" class="text-sm">{{ daysRemaining }} days remaining</div>
+          <div v-else class="text-sm">expired</div>
         </div>
         <!-- <div class="flex w-full justify-center text-lg">This is a test weekly goal</div> -->
         <!-- <textarea
@@ -23,11 +24,11 @@
           id=""
         /> -->
         <div class="w-3/4 xs:w-5/6 m-auto bg-primary border-primary text-white p-2 outline-none focus:border-purple-500 border-2">{{weeklyGoal.weeklyGoal}}</div>
-        <div class="flex w-full flex-row justify-end">
-          <!-- <div v-show="editable" class="text-2xl flex items-center">
+        <div class="flex w-full flex-row justify-end" :class="{'justify-between': editable}">
+          <div v-show="editable" class="text-2xl flex items-center">
             <i class="las la-check mr-2"></i>
             <i class="lar la-trash-alt"></i>
-          </div> -->
+          </div>
           <div
             @click="addGoal"
             class="text-2xl w-10 h-10 xs:w-9 xs:h-9 rounded-full shadow-md flex justify-center items-center bg-purple-500 transition duration-300 ease-in-out hover:bg-purple-600 transform hover:-translate-y-1 hover:scale-110"
@@ -53,7 +54,8 @@ export default {
       weeklyGoal: {},
       usersGoals: [],
       user: {},
-      daysRemaining: 0
+      daysRemaining: 0,
+      editable: false
     }
   },
   props: {
@@ -103,14 +105,16 @@ export default {
     .then(res => {
       console.log(res.data)
       this.weeklyGoal = res.data
-      this.daysRemaining = 
+      this.daysRemaining = this.weekCalculation(this.weeklyGoal.createdAt)
       this.user = res.data.User
+      if (this.user.username == this.currentUser.username){ this.editable = true}
       axios.get('http://localhost:1337/weekly-goals?User.id='+ res.data.User.id)
       .then(res => {
         console.log(res.data)
         this.usersGoals = res.data
       })
     })
+    
     
 
   },

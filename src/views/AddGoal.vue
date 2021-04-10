@@ -18,7 +18,7 @@
           ref="goalInput"
           name="goal"
           v-model="goal"
-          class="w-3/4 xs:w-5/6 m-auto bg-primary border-primary text-white p-2 outline-none focus:border-purple-500 border-2"
+          class="w-3/4 xs:w-5/6 m-auto bg-primary border-primary text-white p-2 outline-none focus:border-purple-500 border-2 resize-none"
           placeholder="Enter weekly goal"
           id=""
         />
@@ -63,9 +63,7 @@ export default {
         User: this.$store.getters.getUser,
         weeklyGoal: this.goal
       }
-      debugger
-      axios.post('http://localhost:1337/weekly-goals', payload)
-      
+      axios.post('http://localhost:1337/weekly-goals', payload)   
       .then(res => {
         console.log(res.data)
         axios.get('http://localhost:1337/weekly-goals?User.id='+ this.user.id)
