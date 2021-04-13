@@ -61,7 +61,8 @@ export default {
     addGoal(){
       let payload = {
         User: this.$store.getters.getUser,
-        weeklyGoal: this.goal
+        weeklyGoal: this.goal,
+        done: false
       }
       axios.post('http://localhost:1337/weekly-goals', payload)   
       .then(res => {

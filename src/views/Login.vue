@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row items-center w-full h-3/4 pt-4 pb-4 flex-wrap">
+  <div class="flex flex-row items-center w-full h-3/4 pt-4 pb-4 flex-wrap xs:justify-center">
     <section class="flex flex-col items-center h-3/4 md:flex-row">
       <div class="container mx-auto">
         <div class="flex justify-center px-2 py-6">

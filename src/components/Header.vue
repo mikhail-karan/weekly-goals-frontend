@@ -11,10 +11,10 @@
           ><i
             class="las la-plus pr-2 transition duration-300 ease-in-out cursor-pointer hover:text-purple-600 transform hover:scale-110"
           ></i></span
-        ><span class="hover:underline cursor-pointer hover:text-purple-600">{{user.username}}</span>
+        ><span @click="logout" class="hover:underline cursor-pointer hover:text-purple-600">{{user.username}}</span>
       </h2>
-      <div v-else  class="flex flex-row items-end">
-        <h2 class="text-2xl text-purple-400 flex flex-row mr-3"><span @click="$router.push('/register')" class="hover:underline cursor-pointer hover:text-purple-600">register</span> </h2>
+      <div v-else  class="flex flex-row items-end xs:flex-col">
+        <h2 class="text-2xl text-purple-400 flex flex-row mr-3 xs:mr-0"><span @click="$router.push('/register')" class="hover:underline cursor-pointer hover:text-purple-600">register</span> </h2>
         <h3 class="text-lg flex flex-row"><span @click="$router.push('/login')" class="hover:underline cursor-pointer hover:text-purple-600">login</span></h3>
       </div>
       
@@ -26,6 +26,12 @@
 <script>
 export default {
   name: 'Header',
+  methods: {
+    logout(){
+      this.$store.dispatch('logout')
+      this.$router.push('/')
+    }
+  },
   computed:{
     auth: function(){
       return this.$store.getters.getToken

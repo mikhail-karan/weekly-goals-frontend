@@ -10,7 +10,8 @@
           class="flex bg-primary w-full flex-row justify-between text-gray-300"
         >
           <router-link to="/register" class="text-sm">{{user.username}}</router-link>
-          <div v-if="daysRemaining > 0" class="text-sm">{{ daysRemaining }} days remaining</div>
+           <div v-if="weeklyGoal.Done" class="text-sm">done</div>
+          <div v-else-if="daysRemaining > 0" class="text-sm">{{ daysRemaining }} days remaining</div>
           <div v-else class="text-sm">expired</div>
         </div>
         <!-- <div class="flex w-full justify-center text-lg">This is a test weekly goal</div> -->
@@ -26,7 +27,7 @@
         <div class="w-3/4 xs:w-5/6 m-auto bg-primary border-primary text-white p-2 outline-none focus:border-purple-500 border-2">{{weeklyGoal.weeklyGoal}}</div>
         <div class="flex w-full flex-row justify-end" :class="{'justify-between': editable}">
           <div v-show="editable" class="text-2xl flex items-center">
-            <i class="las la-check mr-2"></i>
+            <i @click="markAsDone(weeklyGoal)" class="las la-check mr-2" :class="{ inactive: weeklyGoal.Done }"></i>
             <i class="lar la-trash-alt"></i>
           </div>
           <div
@@ -92,6 +93,17 @@ export default {
       .catch(error => {
         console.log(error)
       })
+    },
+    markAsDone(goal){
+      let doneGoal = goal
+      doneGoal.Done = true
+      axios.put('http://localhost:1337/weekly-goals/'+ this.$route.params.id, doneGoal)
+      .then(res => {
+        console.log(res)
+      })
+    },
+    deleteGoal(goal){
+      
     }
   },
   mounted() {
@@ -141,5 +153,9 @@ export default {
   .cards::-webkit-scrollbar-thumb {
     background-color: darkgrey;
     outline: 1px solid slategrey;
+  }
+
+  .inactive {
+    @apply opacity-50 pointer-events-none;
   }
 </style>
