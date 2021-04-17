@@ -14,13 +14,24 @@
 
 <script>
 import Header from './components/Header.vue'
+import jwt_decode from "jwt-decode"
 export default {
   data() {
     return {
     };
   },
   created(){
-    console.log('created')
+    const token = this.$store.getters.getToken
+    if (token){
+      this.$store.dispatch('setToken', token) //Set axios headers
+      const decoded = jwt_decode(token)
+      let currentTime = new Date().getTime() /1000
+      if (currentTime > decoded.exp){ //Check to see if auth token is expired
+        this.$store.dispatch('logout')
+        this.$router.push('/')
+      }
+    }
+    
   },
   components: {
     Header

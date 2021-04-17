@@ -103,7 +103,7 @@
                     <input
                       type="email"
                       v-model="email"
-                      name=""
+                      name="email"
                       id=""
                       placeholder="Your Email "
                       class="w-full px-4 py-2 mt-2 text-base bg-gray-100 border-transparent rounded-lg ext-blue-700 focus:border-gray-500"
@@ -120,7 +120,7 @@
                     <input
                       type="password"
                       v-model="password"
-                      name=""
+                      name="password"
                       id=""
                       placeholder="Your Password "
                       class="w-full px-4 py-2 mt-2 mb-4 text-base bg-gray-100 border-transparent rounded-lg ext-blue-700 focus:border-gray-500"

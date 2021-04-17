@@ -34,6 +34,7 @@ const store = createStore({
     },
     logout({commit}){
       commit('logout')
+      axios.defaults.headers.common = {'Authorization': ''}
     }
   },
   getters: {

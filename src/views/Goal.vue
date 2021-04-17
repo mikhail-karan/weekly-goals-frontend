@@ -15,7 +15,9 @@
           <div v-else class="text-sm">expired</div>
         </div>
         <!-- <div class="flex w-full justify-center text-lg">This is a test weekly goal</div> -->
-        <!-- <textarea
+        <textarea
+          v-if="editClicked"
+          @blur="editGoal(weeklyGoal)"
           rows="2"
           ref="goalInput"
           name="goal"
@@ -23,15 +25,22 @@
           class="w-3/4 xs:w-5/6 m-auto bg-primary border-primary text-white p-2 outline-none focus:border-purple-500 border-2"
           placeholder="Enter weekly goal"
           id=""
-        /> -->
-        <div class="w-3/4 xs:w-5/6 m-auto bg-primary border-primary text-white p-2 outline-none focus:border-purple-500 border-2">{{weeklyGoal.weeklyGoal}}</div>
-        <div class="flex w-full flex-row justify-end" :class="{'justify-between': editable}">
-          <div v-show="editable" class="text-2xl flex items-center">
-            <i @click="markAsDone(weeklyGoal)" class="las la-check mr-2" :class="{ inactive: weeklyGoal.Done }"></i>
-            <i class="lar la-trash-alt"></i>
+        />
+        <div @click="makeEditable" v-else class="w-3/4 xs:w-5/6 m-auto bg-primary border-primary text-white p-2 outline-none focus:border-purple-500 border-2">{{weeklyGoal.weeklyGoal}}</div>
+        <div class="flex w-full flex-row justify-end" :class="{'justify-between': editable && !editClicked}">
+          <div v-show="editable && !editClicked" class="text-2xl flex items-center">
+            <i @click="markAsDone(weeklyGoal)" class="las la-check mr-2 text-green-500" :class="{ inactive: weeklyGoal.Done }"></i>
+            <i @click="deleteGoal(weeklyGoal)" class="lar la-trash-alt text-red-500"></i>
           </div>
           <div
-            @click="addGoal"
+            @click="editGoal(weeklyGoal)"
+            v-if="editClicked"
+            class="text-2xl w-10 h-10 xs:w-9 xs:h-9 rounded-full shadow-md flex justify-center items-center bg-purple-500 transition duration-300 ease-in-out hover:bg-purple-600 transform hover:-translate-y-1 hover:scale-110"
+          >
+            <i class="las la-plus"></i>
+          </div>
+          <div
+            v-else
             class="text-2xl w-10 h-10 xs:w-9 xs:h-9 rounded-full shadow-md flex justify-center items-center bg-purple-500 transition duration-300 ease-in-out hover:bg-purple-600 transform hover:-translate-y-1 hover:scale-110"
           >
             <i class="las la-hands-helping"></i>
@@ -48,6 +57,7 @@
 <script>
 import axios from 'axios'
 import WeeklyGoal from '../components/WeeklyGoal.vue'
+import { nextTick } from 'vue'
 export default {
   name: "Goal",
   data(){
@@ -56,7 +66,9 @@ export default {
       usersGoals: [],
       user: {},
       daysRemaining: 0,
-      editable: false
+      editable: false,
+      editClicked: false, 
+      goal: ''
     }
   },
   props: {
@@ -74,36 +86,37 @@ export default {
       const daysRemaining = Math.round(7 - daysSinceCreated)
       return daysRemaining;
     },
-    addGoal(){
-      let payload = {
-        User: this.$store.getters.getUser,
-        weeklyGoal: {}
-      }
-      axios.post('http://localhost:1337/weekly-goals', payload)
+    makeEditable(){
+      this.editClicked = true
+      console.log(this.$refs)
+      nextTick(() => {
+        this.$refs.goalInput.focus();
+      });
       
-      .then(res => {
-        console.log(res.data)
-        axios.get('http://localhost:1337/weekly-goals?User.id='+ this.user.id)
-        .then(res => {
-          console.log(res.data)
-          this.usersGoals = res.data
-          this.goal = ''
-        })
-      })
-      .catch(error => {
-        console.log(error)
-      })
     },
     markAsDone(goal){
       let doneGoal = goal
       doneGoal.Done = true
-      axios.put('http://localhost:1337/weekly-goals/'+ this.$route.params.id, doneGoal)
+      axios.put('http://localhost:1337/weekly-goals/'+ doneGoal.id, doneGoal)
       .then(res => {
         console.log(res)
       })
     },
     deleteGoal(goal){
-      
+      axios.delete('http://localhost:1337/weekly-goals/'+ goal.id)
+      .then(res => {
+        console.log(res)
+        this.$router.push('/')
+      })
+    },
+    editGoal(goal){
+      let editedGoal = goal
+      editedGoal.weeklyGoal = this.goal
+      axios.put('http://localhost:1337/weekly-goals/'+ editedGoal.id, editedGoal)
+      .then(res => {
+        console.log(res)
+        this.editClicked = false
+      })
     }
   },
   mounted() {
@@ -117,6 +130,7 @@ export default {
     .then(res => {
       console.log(res.data)
       this.weeklyGoal = res.data
+      this.goal = res.data.weeklyGoal
       this.daysRemaining = this.weekCalculation(this.weeklyGoal.createdAt)
       this.user = res.data.User
       if (this.user.username == this.currentUser.username){ this.editable = true}

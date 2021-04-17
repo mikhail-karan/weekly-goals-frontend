@@ -62,7 +62,10 @@ export default {
       let payload = {
         User: this.$store.getters.getUser,
         weeklyGoal: this.goal,
-        done: false
+        done: false,
+        encouragedUsers: [
+          this.$store.getters.getUser
+        ]
       }
       axios.post('http://localhost:1337/weekly-goals', payload)   
       .then(res => {
@@ -70,7 +73,6 @@ export default {
         axios.get('http://localhost:1337/weekly-goals?User.id='+ this.user.id)
         .then(res => {
           console.log(res.data)
-          debugger
           this.usersGoals = res.data
           this.goal = ''
         })
@@ -86,7 +88,6 @@ export default {
     axios.get('http://localhost:1337/weekly-goals?User.id='+ this.user.id)
     .then(res => {
       console.log(res.data)
-      debugger
       this.usersGoals = res.data
     })
 

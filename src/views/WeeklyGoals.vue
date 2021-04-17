@@ -20,7 +20,7 @@ export default {
     WeeklyGoal
   },
   created(){
-    axios.get('http://localhost:1337/weekly-goals')
+    axios.get('http://localhost:1337/weekly-goals?Done_ne=true')
     .then(res => {
       console.log(res.data)
       this.weeklyGoals = res.data.reverse()

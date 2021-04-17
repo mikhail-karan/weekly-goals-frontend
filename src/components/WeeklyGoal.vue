@@ -12,12 +12,14 @@
       <div v-else class="text-sm">expired</div>
     </div>
     <div class="flex w-full justify-center text-lg">{{ goal.weeklyGoal }}</div>
-    <div class="flex w-full flex-row justify-end">
+    <div class="flex w-full flex-row items-center justify-end">
       <!-- <div v-show="editable" class="text-2xl flex items-center">
         <i class="las la-check mr-2"></i>
         <i class="lar la-trash-alt"></i>
       </div> -->
+      <span class="mr-2 text-sm text-gray-300">{{encouraged}}</span>
       <div
+        @click.prevent.stop="encourage"
         class="text-2xl w-10 h-10 rounded-full shadow-md flex justify-center items-center bg-secondaryColor transition duration-300 ease-in-out hover:bg-purple-600 transform hover:-translate-y-1 hover:scale-110"
       >
         <i class="las la-hands-helping"></i>
@@ -27,6 +29,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -49,10 +52,24 @@ export default {
       const daysRemaining = Math.round(7 - daysSinceCreated)
       return daysRemaining;
     },
+    encourage() {
+      let goal = this.goal
+      const userEncouraged = goal.encouragedUsers.findIndex(encourgement => encourgement.id === this.currentUser.id)
+      if (userEncouraged < 0){
+        goal.encouragedUsers.push(this.currentUser)
+        axios.put('http://localhost:1337/weekly-goals/'+ goal.id, goal)
+        .then(res => {
+          console.log(res)
+        })
+      }
+    }
   },
   computed: {
     currentUser: function(){
       return this.$store.getters.getUser
+    },
+    encouraged: function(){
+      return this.goal.encouragedUsers.length
     }
   }
 };
@@ -61,6 +78,7 @@ export default {
 <style>
 .card {
   @apply bg-primary;
+  min-width: 17.5rem;
 }
 
 .encourage:hover {
@@ -68,6 +86,6 @@ export default {
 }
 
 .own-goal {
-  @apply border-secondaryColor border
+  @apply border-secondaryColor border-2 shadow-xl
 }
 </style>

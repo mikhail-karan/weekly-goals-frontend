@@ -11,7 +11,17 @@
           ><i
             class="las la-plus pr-2 transition duration-300 ease-in-out cursor-pointer hover:text-purple-600 transform hover:scale-110"
           ></i></span
-        ><span @click="logout" class="hover:underline cursor-pointer hover:text-purple-600">{{user.username}}</span>
+        ><a class="cursor-pointer"><span @mouseover="dropdown = true" @mouseleave="dropdown = false" class="hover:underline hover:text-purple-600">{{user.username}} </span>
+          <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+            <div v-if="dropdown" @mouseover="dropdown=true" @mouseleave="dropdown = false" class="dropdown absolute p-3 bg-cardColor shadow-md flex justify-cente rounded-md text-lg">
+              <ul class="list-none">
+                <li class="hover:underline hover:text-purple-600" @click="$router.push('mygoals')">my goals</li>
+                <li class="hover:underline hover:text-purple-600" @click="logout">logout</li>
+              </ul>
+            </div>
+          </transition>
+        </a>
+        
       </h2>
       <div v-else  class="flex flex-row items-end xs:flex-col">
         <h2 class="text-2xl text-purple-400 flex flex-row mr-3 xs:mr-0"><span @click="$router.push('/register')" class="hover:underline cursor-pointer hover:text-purple-600">register</span> </h2>
@@ -26,6 +36,11 @@
 <script>
 export default {
   name: 'Header',
+  data(){
+    return {
+      dropdown: false
+    }
+  },
   methods: {
     logout(){
       this.$store.dispatch('logout')

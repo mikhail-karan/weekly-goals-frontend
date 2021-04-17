@@ -6,9 +6,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        backgroundColor: '#2E3A48',
-        cardColor: '#1A2634',
-        primary: '#1A2634',
+        backgroundColor: '#1A2634',
+        // backgroundColor: '#2E3A48',
+        cardColor: '#2E3A48',
+        // cardColor: '#1A2634',
+        primary: '#2E3A48',
         secondaryColor: '#7B78FF'
       },
       spacing: {
