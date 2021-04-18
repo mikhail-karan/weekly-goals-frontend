@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col pt-8 xs:justify-center ml-6"> 
+  <div class="flex flex-col w-4/5 mx-auto pt-8 xs:justify-center"> 
     <section class="flex flex-row justify-evenly">
       <div class="flex flex-col">
         <h2 class="text-white">Completed Goals</h2>

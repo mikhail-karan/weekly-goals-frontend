@@ -1,10 +1,12 @@
 <template>
   <div class="flex flex-col items-center h-3/4">
     <div
-      class="flex w-1/2 h-3/4 xs:h=1/2 items-center justify-center border-purple-600 border-b-2 xs:w-full sm:w-3/4"
+      class="flex w-1/2 h-3/4 xs:h=1/2 items-center justify-center xs:w-full sm:w-3/4"
+      
     >
       <div
         class="card flex flex-col w-5/6 h-3/4 shadow-lg rounded-3xl justify-around text-white m-5 pt-2 pb-2 pl-4 pr-4"
+        :class="{'done-goal': weeklyGoal.Done}"
       >
         <div
           class="flex bg-primary w-full flex-row justify-between text-gray-300"
@@ -48,7 +50,7 @@
         </div>
       </div>
     </div>
-    <div class="cards flex w-4/6 flex-row justify-center h-full overflow-auto flex-wrap xs:w-full">
+    <div class="cards flex w-4/6 flex-row justify-start h-full overflow-auto flex-wrap border-purple-600 border-t-2 xs:w-full">
       <weekly-goal v-for="goal in reversedUserGoals" :key="goal.id" :goal="goal" />
     </div>
   </div>
@@ -171,5 +173,9 @@ export default {
 
   .inactive {
     @apply opacity-50 pointer-events-none;
+  }
+
+  .done-goal {
+    @apply border-green-400 border-2
   }
 </style>

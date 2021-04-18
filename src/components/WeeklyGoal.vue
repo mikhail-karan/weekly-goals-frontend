@@ -1,7 +1,7 @@
 <template>
   <div
     class="card flex flex-col w-70 h-40 shadow-lg rounded-3xl justify-around text-white m-5 pt-2 pb-2 pl-4 pr-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-xl cursor-pointer"
-    :class="{'own-goal': currentUser.id == goal.User.id}"
+    :class="{'own-goal': currentUser.id == goal.User.id, 'done-goal': goal.Done}"
   >
     <div class="flex bg-primary w-full flex-row justify-between text-gray-300">
       <router-link to="/register" class="text-sm">{{
@@ -88,4 +88,9 @@ export default {
 .own-goal {
   @apply border-secondaryColor border-2 shadow-xl
 }
+
+.done-goal {
+  @apply border-green-400 border-2
+}
+
 </style>

@@ -11,7 +11,8 @@ module.exports = {
         cardColor: '#2E3A48',
         // cardColor: '#1A2634',
         primary: '#2E3A48',
-        secondaryColor: '#7B78FF'
+        secondaryColor: '#7B78FF',
+        hattBlue: '#4aa1d9'
       },
       spacing: {
         '213': '53.25rem',
@@ -114,6 +115,8 @@ module.exports = {
 
     },
   },
-  variants: {},
+  variants: {
+    display: ["group-hover"]
+  },
   plugins: [],
 };

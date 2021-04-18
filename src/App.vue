@@ -1,5 +1,6 @@
 <template>
   <div class="App h-full">
+    <top-bar />
     <Header />
       <router-view v-slot="{ Component }">
         <transition 
@@ -14,6 +15,7 @@
 
 <script>
 import Header from './components/Header.vue'
+import TopBar from './components/HattBar.vue'
 import jwt_decode from "jwt-decode"
 export default {
   data() {
@@ -34,7 +36,8 @@ export default {
     
   },
   components: {
-    Header
+    Header,
+    TopBar
   }
 };
 </script>
