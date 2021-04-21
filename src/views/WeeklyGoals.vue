@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-row flex-wrap w-4/5 mx-auto xs:justify-center"> 
-    <WeeklyGoal @click="$router.push({name: 'goal', params: {id: goal.id}})" v-for="goal in weeklyGoals" :key="goal.id" :goal="goal" />
+  <div class="flex flex-row flex-wrap container mx-auto xs:justify-center"> 
+    <WeeklyGoal v-for="goal in weeklyGoals" :key="goal.id" :goal="goal" />
     <!-- <WeeklyGoal />
     <WeeklyGoal />
     <WeeklyGoal /> -->
@@ -30,5 +30,5 @@ export default {
 </script>
 
 <style>
-
+  
 </style>

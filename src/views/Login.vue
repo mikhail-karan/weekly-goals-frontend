@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-row items-center w-full h-3/4 pt-4 pb-4 flex-wrap xs:justify-center">
-    <section class="flex flex-col items-center h-3/4 md:flex-row">
+    <section class="flex flex-col items-center w-full h-3/4 md:flex-row">
       <div class="container mx-auto">
         <div class="flex justify-center px-2 py-6">
           <div
@@ -18,10 +18,7 @@
                 <div
                   class="w-full mt-16 mb-8 text-base leading-relaxed text-white sm:md:w-3/3 lg:text-1xl"
                 >
-                  All you have to do is choose the section you need, remove the
-                  one that you do not need for that project and paste the one
-                  you need in that moment. All the section have been given the
-                  same left/right padding. Because consistence is king.
+                  Join our community in keeping yourself and everyone else accountable to their weekly growth goals. Small improvments can lead to large gains as long as we can stick with them!
                 </div>
               </div>
             </div>

@@ -1,9 +1,13 @@
 <template>
-  <div class="flex flex-row w-4/5 mx-auto text-white h-1/6 xs:h-1/5">
+  <div class="flex flex-row container mx-auto text-white h-1/6 xs:h-1/5">
     <div
       class="flex flex-row items-center justify-between w-full mt-11 mx-9"
     >
-      <h1 class="text-5xl xs:text-4xl cursor-pointer select-none" @click="$router.push('/')">Weekly Growth Goals</h1>
+      <router-link to="/" class="flex items-center h-full">
+        <img class="h-full" src="../assets/logo.png" alt="">
+        <h1 class="text-5xl xs:text-4xl cursor-pointer select-none" >Weekly Growth Goals</h1>
+      </router-link>
+
       <h2 v-if="auth" class="text-2xl flex flex-row">
         <!-- <span class="mr-2">{{user.username}}</span> -->
         <span

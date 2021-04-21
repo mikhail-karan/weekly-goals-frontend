@@ -1,11 +1,14 @@
 <template>
-  <div class="flex flex-row items-center w-full h-3/4 pt-4 pb-4 flex-wrap">
-    <section class="flex flex-col items-center h-3/4 md:flex-row">
-      <div class="container mx-auto">
-        <div class="flex justify-center px-2 py-6">
+  <div class="flex flex-row items-center w-full max-h-9/12 pt-4 pb-4 flex-wrap">
+    <section class="flex flex-col items-center h-full md:flex-row w-full">
+      <div class="container mx-auto h-full">
+        <div class="flex justify-center px-2 py-6 h-full">
+          <terms-of-service v-if="showPrivacy" @go-back="showPrivacy = false" />
           <div
+          v-else
             class="flex w-full rounded-lg bg-cardColor xl:w-3/4 lg:w-11/12 lg:shadow-xl"
           >
+            
             <div
               class="relative hidden w-full h-auto bg-cover border-r rounded-l-lg bg-blue-1300 lg:block lg:w-6/12"
             >
@@ -18,21 +21,19 @@
                 <div
                   class="w-full mt-16 mb-8 text-base leading-relaxed text-white sm:md:w-3/3 lg:text-1xl"
                 >
-                  All you have to do is choose the section you need, remove the
-                  one that you do not need for that project and paste the one
-                  you need in that moment. All the section have been given the
-                  same left/right padding. Because consistence is king.
+                  Join our community in keeping yourself and everyone else accountable to their weekly growth goals. Small improvments can lead to large gains as long as we can stick with them!
                 </div>
               </div>
             </div>
+            
             <div
               class="w-full px-8 py-24 border-gray-100 rounded-lg bg-blue-1300 lg:w-8/12 lg:px-24 lg:py-4 lg:rounded-l-none s"
             >
               <div class="relative z-10 text-left">
-                <div class="flex justify-enter lg:py-6">
+                <div class="hidden flex justify-enter lg:py-6">
                   <button
                     type="button"
-                    class="inline-flex w-full px-4 py-3 font-semibold text-secondary border border-gray-300 rounded-lg bg-blue-1300 hover:bg-blue-700 hover:text-white focus:bg-gray-100"
+                    class="inline-flex opacity-70 pointer-events-none w-full px-4 py-3 font-semibold text-secondary border border-gray-300 rounded-lg bg-blue-1300 hover:bg-blue-700 hover:text-white focus:bg-gray-100"
                   >
                     <div class="flex items-center justify-center">
                       <svg
@@ -76,7 +77,7 @@
                   </button>
                   <button
                     type="button"
-                    class="inline-flex px-4 py-3 ml-8 font-semibold text-white border border-gray-300 rounded-lg bg-blue-1300 hover:bg-blue-870 focus:bg-gray-100 hover:text-blue-500"
+                    class="inline-flex opacity-70 pointer-events-none px-4 py-3 ml-8 font-semibold text-white border border-gray-300 rounded-lg bg-blue-1300 hover:bg-blue-870 focus:bg-gray-100 hover:text-blue-500"
                   >
                     <div class="flex items-center justify-center">
                       <svg
@@ -94,7 +95,7 @@
                     </div>
                   </button>
                 </div>
-                <form class="mt-6" action="#" method="POST">
+                <form class="mt-2" action="#" method="POST">
                   <div>
                     <label
                       class="block text-base font-medium leading-relaxed text-gray-400"
@@ -145,9 +146,9 @@
                         type="password"
                         placeholder="Your Password"
                       />
-                      <p class="mt-1 text-xs italic text-purple-500">
+                      <!-- <p class="mt-1 text-xs italic text-purple-500">
                         Please fill out this field.
-                      </p>
+                      </p> -->
                     </div>
                     <div class="w-full px-3 md:w-1/2">
                       <label
@@ -164,11 +165,29 @@
                         placeholder="Confirm"
                       />
                     </div>
+                    <div class="w-full flex px-3 items-center pt-4">
+                      
+                      <input
+                        class="w-5 h-5"
+                        id="newsletter"
+                        type="checkbox"
+                        name="newsletter"
+                        v-model="newsletter"
+                      >
+                      <label
+                        class="font-medium text-gray-400 ml-2 text-xs"
+                        for="newsletter"
+                      >
+                        Yes, sign me up for the HTML All The Things newsletter
+                      </label>
+                    </div>
+
                   </div>
+                  <p class="font-medium text-purple-500 ml-2 text-xs my-0">By creating an account, you agree with our <span @click="showPrivacy = true" class="underline text-purple-400 hover:text-purple-500 cursor-pointer">Terms of Service</span></p>
                   <button
                     @click.prevent="register"
                     type="submit"
-                    class="block w-full px-4 py-3 mt-6 font-semibold text-white transition duration-500 ease-in-out transform rounded-lg bg-gradient-to-r from-purple-700 hover:from-purple-500 to-purple-500 hover:to-purple-700 focus:shadow-outline focus:outline-none"
+                    class="block w-full px-4 py-3 mt-3 font-semibold text-white transition duration-500 ease-in-out transform rounded-lg bg-gradient-to-r from-purple-700 hover:from-purple-500 to-purple-500 hover:to-purple-700 focus:shadow-outline focus:outline-none"
                   >
                     Register
                   </button>
@@ -195,6 +214,7 @@
 
 <script>
 import axios from "axios";
+import TermsOfService from "../components/TermsOfService.vue"
 export default {
   name: "Register",
   data() {
@@ -203,8 +223,13 @@ export default {
       email: "",
       password: "",
       password2: "",
-      error: ""
+      error: "",
+      newsletter: [],
+      showPrivacy: false
     };
+  },
+  components: {
+    TermsOfService
   },
   methods: {
     register() {
@@ -224,12 +249,13 @@ export default {
         this.error = 'Password confirmation incorrect'
         return
       }
-
+      debugger
       axios
         .post("http://localhost:1337/auth/local/register", {
           username: this.name,
           email: this.email,
           password: this.password,
+          Newsletter: this.newsletter.length ? true : false
         })
         .then((response) => {
           // Handle success.
@@ -250,12 +276,12 @@ export default {
 </script>
 
 <style scoped>
-input:focus-within ~ label,
-input:not(:placeholder-shown) ~ label {
+input[type=text]:focus-within ~ label,
+input[type=text]:not(:placeholder-shown) ~ label {
   @apply transform scale-75 -translate-y-6;
 }
 
-input:focus-within ~ label {
+input[type=text]:focus-within ~ label {
   @apply text-secondaryColor;
 }
 </style>

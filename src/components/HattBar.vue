@@ -1,7 +1,7 @@
 <template>
   <div class="w-full absolute bg-hattBlue flex flex-row items-center justify-between text-white p-2 shadow-md">
     <div class="flex flex-row">
-      <p class="flex md:hidden ">Brought to you by </p><a class="ml-2 underline hover:text-purple-600" href="https://www.htmlallthethings.com/">HTML All The Things</a>
+      <p class="flex xs:hidden ">Brought to you by </p><a class="ml-2 underline hover:text-purple-600" href="https://www.htmlallthethings.com/">HTML All The Things</a>
     </div>
     <div class="flex flex-row text-2xl">
       <a class="flex items-center mr-3 hover:text-blue-600" href="https://github.com/mikhail-karan"><i class="lab la-github"></i></a>

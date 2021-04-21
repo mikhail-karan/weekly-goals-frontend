@@ -116,7 +116,30 @@ module.exports = {
     },
   },
   variants: {
-    display: ["group-hover"]
+    display: ["group-hover", "responsive"]
   },
-  plugins: [],
+  plugins: [
+    function ({ addComponents }) {
+      addComponents({
+        '.container': {
+          maxWidth: '100%',
+          '@screen sm': {
+            maxWidth: '600px',
+          },
+          '@screen md': {
+            maxWidth: '700px',
+          },
+          '@screen lg': {
+            maxWidth: '800px',
+          },
+          '@screen xl': {
+            maxWidth: '1200px',
+          },
+        }
+      })
+    }
+  ],
+  corePlugins: {
+    container: false
+  },
 };

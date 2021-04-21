@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col w-4/5 mx-auto pt-8 xs:justify-center"> 
-    <section class="flex flex-row justify-evenly">
+    <section class="flex flex-row justify-evenly xs:mb-2">
       <div class="flex flex-col">
         <h2 class="text-white">Completed Goals</h2>
         <div class="text-white">{{done.length}}</div>
@@ -18,13 +18,13 @@
     </section>
     <section>
       <h2 class="text-white">Your Finished Goals</h2>
-      <div class="flex flex-row">
+      <div class="flex flex-row overflow-auto w-full">
         <WeeklyGoal @click="$router.push({name: 'goal', params: {id: goal.id}})" v-for="goal in done" :key="goal.id" :goal="goal" />
       </div>
     </section>
     <section>
       <h2 class="text-white">Your Expired Goals</h2>
-      <div class="flex flex-row">
+      <div class="flex flex-row overflow-auto w-full">
         <WeeklyGoal @click="$router.push({name: 'goal', params: {id: goal.id}})" v-for="goal in expired" :key="goal.id" :goal="goal" />
       </div>
     </section>
@@ -84,6 +84,18 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+section div::-webkit-scrollbar {
+  width: 0.3em;
+  height: 0.3em;
+}
 
+section div::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+section div::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
 </style>
