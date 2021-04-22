@@ -127,14 +127,14 @@ export default {
       let doneGoal = goal;
       doneGoal.Done = true;
       axios
-        .put("http://localhost:1337/weekly-goals/" + doneGoal.id, doneGoal)
+        .put(this.baseUrl + "weekly-goals/" + doneGoal.id, doneGoal)
         .then((res) => {
           console.log(res);
         });
     },
     deleteGoal(goal) {
       axios
-        .delete("http://localhost:1337/weekly-goals/" + goal.id)
+        .delete(this.baseUrl + "weekly-goals/" + goal.id)
         .then((res) => {
           console.log(res);
           this.$router.push("/");
@@ -144,7 +144,7 @@ export default {
       let editedGoal = goal;
       editedGoal.weeklyGoal = this.goal;
       axios
-        .put("http://localhost:1337/weekly-goals/" + editedGoal.id, editedGoal)
+        .put(this.baseUrl + "weekly-goals/" + editedGoal.id, editedGoal)
         .then((res) => {
           console.log(res);
           this.editClicked = false;
@@ -152,19 +152,19 @@ export default {
     },
     getGoal() {
       axios
-        .get("http://localhost:1337/weekly-goals/" + this.$route.params.id)
+        .get(this.baseUrl + "weekly-goals/" + this.$route.params.id)
         .then((res) => {
           console.log(res.data);
           this.weeklyGoal = res.data;
           this.goal = res.data.weeklyGoal;
-          this.daysRemaining = this.weekCalculation(this.weeklyGoal.createdAt);
+          this.daysRemaining = this.weekCalculation(this.weeklyGoal.created_at);
           this.user = res.data.User;
           if (this.user.username == this.currentUser.username) {
             this.editable = true;
           }
           axios
             .get(
-              "http://localhost:1337/weekly-goals?User.id=" + res.data.User.id
+              this.baseUrl + "weekly-goals?User.id=" + res.data.User.id
             )
             .then((res) => {
               console.log(res.data);
@@ -180,12 +180,6 @@ export default {
     },
   },
   mounted() {
-    // this.user = this.$store.getters.getUser
-    // axios.get('http://localhost:1337/weekly-goals?User.id='+ this.user.id)
-    // .then(res => {
-    //   console.log(res.data)
-    //   this.usersGoals = res.data
-    // })
     this.getGoal();
   },
   computed: {
@@ -194,6 +188,9 @@ export default {
     },
     reversedUserGoals() {
       return this.usersGoals.reverse();
+    },
+    baseUrl: function(){
+      return this.$store.getters.getUrl
     },
   },
 };

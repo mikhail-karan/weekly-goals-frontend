@@ -19,6 +19,7 @@ export default {
     return {};
   },
   created() {
+    console.log(import.meta.env)
     const token = this.$store.getters.getToken;
     if (token) {
       this.$store.dispatch("setToken", token); //Set axios headers

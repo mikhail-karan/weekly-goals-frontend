@@ -48,9 +48,10 @@ export default {
   },
   methods: {
     weekCalculation() {
-      const createdAtStr = Date.parse(this.goal.createdAt);
+      const createdAtStr = Date.parse(this.goal.created_at);
       const oneDay = 24 * 60 * 60 * 1000;
       const today = Date.now();
+      console.log('today: ' + today, 'created: ' + createdAtStr)
       const daysSinceCreated = (today - createdAtStr)/oneDay
       const daysRemaining = Math.round(7 - daysSinceCreated)
       return daysRemaining;
@@ -60,7 +61,7 @@ export default {
       const userEncouraged = goal.encouragedUsers.findIndex(encourgement => encourgement.id === this.currentUser.id)
       if (userEncouraged < 0 && currentUser.id){
         goal.encouragedUsers.push(this.currentUser)
-        axios.put('http://localhost:1337/weekly-goals/'+ goal.id, goal)
+        axios.put(this.baseUrl + 'weekly-goals/'+ goal.id, goal)
         .then(res => {
           console.log(res)
         })
@@ -73,6 +74,9 @@ export default {
   computed: {
     currentUser: function(){
       return this.$store.getters.getUser
+    },
+    baseUrl: function(){
+      return this.$store.getters.getUrl
     },
     encouraged: function(){
       return this.goal.encouragedUsers.length

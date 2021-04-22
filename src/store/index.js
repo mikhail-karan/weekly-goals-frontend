@@ -5,7 +5,8 @@ const store = createStore({
   state () {
     return {
       user: JSON.parse(window.localStorage.getItem('user')) || {},
-      token: window.localStorage.getItem('token') || ''
+      token: window.localStorage.getItem('token') || '',
+      baseUrl: import.meta.env.VITE_APP_URL
     }
   },
   mutations: {
@@ -39,7 +40,8 @@ const store = createStore({
   },
   getters: {
     getUser: (state) => state.user,
-    getToken: (state) => state.token
+    getToken: (state) => state.token,
+    getUrl: (state) => state.baseUrl
   }
 })
 

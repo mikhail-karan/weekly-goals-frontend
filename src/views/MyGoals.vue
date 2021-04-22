@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     weekCalculation(goal) {
-      const createdAtStr = Date.parse(goal.createdAt);
+      const createdAtStr = Date.parse(goal.created_at);
       const oneDay = 24 * 60 * 60 * 1000;
       const today = Date.now();
       const daysSinceCreated = (today - createdAtStr)/oneDay
@@ -58,7 +58,7 @@ export default {
   },
   created(){
     const currentUser = this.$store.getters.getUser
-    axios.get('http://localhost:1337/weekly-goals?User.id='+ currentUser.id)
+    axios.get(this.baseUrl + 'weekly-goals?User.id='+ currentUser.id)
     .then(res => {
       console.log(res.data)
       this.weeklyGoals = res.data.reverse()
@@ -79,7 +79,10 @@ export default {
       return this.weeklyGoals.filter(goal => {
         return !goal.Done && this.weekCalculation(goal) <= 0
       });
-    }
+    },
+    baseUrl: function(){
+      return this.$store.getters.getUrl
+    },
   }
 }
 </script>

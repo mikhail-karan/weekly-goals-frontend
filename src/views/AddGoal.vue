@@ -62,15 +62,15 @@ export default {
       let payload = {
         User: this.$store.getters.getUser,
         weeklyGoal: this.goal,
-        done: false,
+        Done: false,
         encouragedUsers: [
           this.$store.getters.getUser
         ]
       }
-      axios.post('http://localhost:1337/weekly-goals', payload)   
+      axios.post(this.baseUrl + 'weekly-goals', payload)   
       .then(res => {
         console.log(res.data)
-        axios.get('http://localhost:1337/weekly-goals?User.id='+ this.user.id)
+        axios.get(this.baseUrl + 'weekly-goals?User.id='+ this.user.id)
         .then(res => {
           console.log(res.data)
           this.usersGoals = res.data
@@ -85,7 +85,7 @@ export default {
   mounted() {
     this.$refs.goalInput.focus();
     this.user = this.$store.getters.getUser
-    axios.get('http://localhost:1337/weekly-goals?User.id='+ this.user.id)
+    axios.get(this.baseUrl + 'weekly-goals?User.id='+ this.user.id)
     .then(res => {
       console.log(res.data)
       this.usersGoals = res.data
@@ -98,7 +98,10 @@ export default {
     },
     reversedUserGoals(){
       return this.usersGoals.reverse()
-    }
+    },
+    baseUrl: function(){
+      return this.$store.getters.getUrl
+    },
   }
 };
 </script>

@@ -249,9 +249,10 @@ export default {
         this.error = 'Password confirmation incorrect'
         return
       }
+      const baseUrl = this.$store.getters.getUrl
       debugger
       axios
-        .post("http://localhost:1337/auth/local/register", {
+        .post(baseUrl + "auth/local/register", {
           username: this.name,
           email: this.email,
           password: this.password,

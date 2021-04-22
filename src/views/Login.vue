@@ -175,8 +175,9 @@ export default {
         this.error = "Please enter your password";
         return;
       }
+      const baseUrl = this.$store.getters.getUrl
       axios
-        .post("http://localhost:1337/auth/local", {
+        .post(baseUrl + "auth/local", {
           identifier: this.email,
           password: this.password,
         })
