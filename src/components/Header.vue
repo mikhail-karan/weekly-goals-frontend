@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-row container mx-auto text-white h-1/6 xs:h-1/5">
+  <div class="flex flex-row container mx-auto text-white h-1/6 xs:h-1/5 xs:mb-6">
     <div
-      class="flex flex-row items-center justify-between w-full mt-11 mx-9"
+      class="flex flex-row items-center justify-between w-full mt-11 mx-9 xs:flex-col"
     >
       <router-link to="/" class="flex items-center h-full">
         <img class="h-full" src="../assets/logo.png" alt="">
@@ -27,8 +27,8 @@
         </a>
         
       </h2>
-      <div v-else  class="flex flex-row items-end xs:flex-col">
-        <h2 class="text-2xl text-purple-400 flex flex-row mr-3 xs:mr-0"><span @click="$router.push('/register')" class="hover:underline cursor-pointer hover:text-purple-600">register</span> </h2>
+      <div v-else  class="flex flex-row items-end">
+        <h2 class="text-2xl text-purple-400 flex flex-row mr-3"><span @click="$router.push('/register')" class="hover:underline cursor-pointer hover:text-purple-600">register</span> </h2>
         <h3 class="text-lg flex flex-row"><span @click="$router.push('/login')" class="hover:underline cursor-pointer hover:text-purple-600">login</span></h3>
       </div>
       

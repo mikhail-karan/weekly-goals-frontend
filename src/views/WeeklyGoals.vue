@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-row flex-wrap container mx-auto xs:justify-center"> 
-    <div class="flex flex-row flex-wrap" v-if="loadingDone">
+  <div class="container mx-auto "> 
+    <div class="flex flex-row flex-wrap xs:justify-center" v-if="loadingDone">
       <WeeklyGoal v-for="goal in weeklyGoals" :key="goal.id" :goal="goal" />
     </div>
-    <div class="flex flex-row flex-wrap" v-else>
+    <div class="flex flex-row flex-wrap xs:justify-center" v-else>
       <loading-goal />
       <loading-goal />
       <loading-goal />

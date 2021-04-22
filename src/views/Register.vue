@@ -27,13 +27,13 @@
             </div>
             
             <div
-              class="w-full px-8 py-24 border-gray-100 rounded-lg bg-blue-1300 lg:w-8/12 lg:px-24 lg:py-4 lg:rounded-l-none s"
+              class="w-full px-8 py-24 xs:py-9 border-gray-100 rounded-lg bg-blue-1300 lg:w-8/12 lg:px-24 lg:py-4 lg:rounded-l-none s"
             >
               <div class="relative z-10 text-left">
-                <div class="hidden flex justify-enter lg:py-6">
+                <div class="flex justify-enter lg:py-6">
                   <button
                     type="button"
-                    class="inline-flex opacity-70 pointer-events-none w-full px-4 py-3 font-semibold text-secondary border border-gray-300 rounded-lg bg-blue-1300 hover:bg-blue-700 hover:text-white focus:bg-gray-100"
+                    class="inline-flex opacity-80 pointer-events-none w-full px-4 py-3 font-semibold text-secondary border border-gray-300 rounded-lg bg-blue-1300 hover:bg-blue-700 hover:text-white focus:bg-gray-100"
                   >
                     <div class="flex items-center justify-center">
                       <svg
@@ -173,6 +173,7 @@
                         type="checkbox"
                         name="newsletter"
                         v-model="newsletter"
+                        value="newsletter"
                       >
                       <label
                         class="font-medium text-gray-400 ml-2 text-xs"
