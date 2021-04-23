@@ -4,14 +4,16 @@
     <Header />
     <router-view v-slot="{ Component }">
       <transition name="fade" mode="out-in">
-        <component :is="Component" />
+        <component class="min-height" :is="Component" />
       </transition>
     </router-view>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
+import Footer from "./components/Footer.vue";
 import TopBar from "./components/HattBar.vue";
 import jwt_decode from "jwt-decode";
 export default {
@@ -35,6 +37,7 @@ export default {
   components: {
     Header,
     TopBar,
+    Footer
   },
 };
 </script>
@@ -65,5 +68,9 @@ h3 {
 .fade-enter,
 .fade-leave-active {
   opacity: 0;
+}
+
+.min-height {
+  min-height: 75%;
 }
 </style>

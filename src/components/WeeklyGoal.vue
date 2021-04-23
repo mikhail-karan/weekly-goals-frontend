@@ -59,7 +59,7 @@ export default {
     encourage() {
       let goal = this.goal
       const userEncouraged = goal.encouragedUsers.findIndex(encourgement => encourgement.id === this.currentUser.id)
-      if (userEncouraged < 0 && currentUser.id){
+      if (userEncouraged < 0 && this.currentUser.id){
         goal.encouragedUsers.push(this.currentUser)
         axios.put(this.baseUrl + 'weekly-goals/'+ goal.id, goal)
         .then(res => {

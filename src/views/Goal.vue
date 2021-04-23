@@ -73,7 +73,7 @@
       </div>
     </div>
     <div
-      class="cards flex w-4/6 flex-row justify-start h-full overflow-auto flex-wrap border-purple-600 border-t-2 xs:w-full"
+      class="cards flex w-4/6 flex-row justify-start xs:justify-center h-full overflow-auto flex-wrap border-purple-600 border-t-2 xs:w-full"
     >
       <weekly-goal
         v-for="goal in reversedUserGoals"
