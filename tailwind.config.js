@@ -133,7 +133,7 @@ module.exports = {
             maxWidth: '800px',
           },
           '@screen xl': {
-            maxWidth: '1200px',
+            maxWidth: '1300px',
           },
         }
       })

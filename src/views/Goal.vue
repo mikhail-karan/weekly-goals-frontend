@@ -72,14 +72,12 @@
         </div>
       </div>
     </div>
-    <div
-      class="cards flex w-4/6 flex-row justify-start xs:justify-center h-full overflow-auto flex-wrap border-purple-600 border-t-2 xs:w-full"
-    >
-      <weekly-goal
-        v-for="goal in reversedUserGoals"
-        :key="goal.id"
-        :goal="goal"
-      />
+    <div class="cards flex w-4/6 flex-col h-full overflow-auto flex-wrap xs:w-full">
+      <h2 class="text-white text-2xl mt-3 h-7 md:ml-4 xs:text-center">{{user.username}}'s Goals</h2>
+      <div class="flex flex-row xs:flex-col xs:justify-start xs:items-center xs:w-full">
+        <weekly-goal v-for="goal in reversedUserGoals" :key="goal.id" :goal="goal" />
+      </div>
+      
     </div>
   </div>
 </template>

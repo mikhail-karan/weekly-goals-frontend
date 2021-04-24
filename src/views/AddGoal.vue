@@ -7,26 +7,27 @@
         class="card flex flex-col w-5/6 h-3/4 shadow-lg rounded-3xl justify-around text-white m-5 pt-2 pb-2 pl-4 pr-4"
       >
         <div
-          class="flex bg-primary w-full flex-row justify-between text-gray-300"
+          class="flex bg-primary w-full flex-row justify-between text-gray-300 text-lg xs:text-sm"
         >
-          <router-link to="/register" class="text-sm">{{user.username}}</router-link>
-          <div class="text-sm">7 Days</div>
+          <router-link to="/register">{{user.username}}</router-link>
+          <div class="">7 days</div>
         </div>
         <!-- <div class="flex w-full justify-center text-lg">This is a test weekly goal</div> -->
         <textarea
-          rows="2"
+          rows="3"
           ref="goalInput"
           name="goal"
           v-model="goal"
+          :maxlength="maxCharCount"
           class="w-3/4 xs:w-5/6 m-auto bg-primary border-primary text-white p-2 outline-none focus:border-purple-500 border-2 resize-none"
           placeholder="Enter weekly goal"
           id=""
         />
-        <div class="flex w-full flex-row justify-end">
-          <!-- <div v-show="editable" class="text-2xl flex items-center">
-            <i class="las la-check mr-2"></i>
-            <i class="lar la-trash-alt"></i>
-          </div> -->
+        <div class="flex w-full flex-row justify-between">
+          <div class="text-lg flex items-center text-gray-300">
+            <div>{{currentCharCount}}/</div>
+            <div>{{maxCharCount}} max</div>
+          </div>
           <div
             @click="addGoal"
             class="text-2xl w-10 h-10 xs:w-9 xs:h-9 rounded-full shadow-md flex justify-center items-center bg-purple-500 transition duration-300 ease-in-out hover:bg-purple-600 transform hover:-translate-y-1 hover:scale-110"
@@ -36,8 +37,12 @@
         </div>
       </div>
     </div>
-    <div class="cards flex w-4/6 flex-row justify-center h-full overflow-auto flex-wrap xs:w-full">
-      <weekly-goal v-for="goal in reversedUserGoals" :key="goal.id" :goal="goal" />
+    <div class="cards flex w-4/6 flex-col h-full overflow-auto flex-wrap xs:w-full">
+      <h2 class="text-white text-2xl mt-3 h-7 md:ml-4 xs:text-center">{{user.username}}'s Goals</h2>
+      <div class="flex flex-row xs:flex-col xs:justify-start xs:items-center xs:w-full">
+        <weekly-goal v-for="goal in reversedUserGoals" :key="goal.id" :goal="goal" />
+      </div>
+      
     </div>
   </div>
 </template>
@@ -51,7 +56,8 @@ export default {
     return {
       goal: '',
       usersGoals: [],
-      user: {}
+      user: {},
+      maxCharCount: 240
     }
   },
   components: {
@@ -102,6 +108,9 @@ export default {
     baseUrl: function(){
       return this.$store.getters.getUrl
     },
+    currentCharCount: function(){
+      return this.goal.length
+    }
   }
 };
 </script>

@@ -15,12 +15,12 @@
           ><i
             class="las la-plus pr-2 transition duration-300 ease-in-out cursor-pointer hover:text-purple-600 transform hover:scale-110"
           ></i></span
-        ><a class="group cursor-pointer"><span class="hover:underline hover:text-purple-600">{{user.username}} </span>
+        ><a class="group cursor-pointer"><span class="hover:underline hover:text-purple-600 select-none">{{user.username}} </span>
           <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
             <div class="hidden group-hover:flex absolute z-10 p-3 bg-cardColor shadow-md justify-cente rounded-md text-lg">
               <ul class="list-none">
-                <li class="hover:underline hover:text-purple-600"><router-link to="/mygoals">my goals</router-link></li>
-                <li class="hover:underline hover:text-purple-600" @click="logout">logout</li>
+                <li class="hover:underline select-none hover:text-purple-600"><router-link to="/mygoals">my goals</router-link></li>
+                <li class="hover:underline select-none hover:text-purple-600" @click="logout">logout</li>
               </ul>
             </div>
           </transition>

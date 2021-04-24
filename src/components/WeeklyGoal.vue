@@ -1,7 +1,7 @@
 <template>
   <div
     @click="openGoal()" 
-    class="card flex flex-col w-70 h-40 shadow-lg rounded-3xl justify-around text-white m-5 pt-2 pb-2 pl-4 pr-4 transition duration-500 ease-in-out transform hover:-translate-y-2  hover:shadow-xl cursor-pointer"
+    class="card flex flex-col w-70 h-40 md:h-48 md:w-96 shadow-lg rounded-3xl justify-around text-white m-5 pt-2 pb-2 pl-4 pr-4 transition duration-500 ease-in-out transform hover:-translate-y-2  hover:shadow-xl cursor-pointer"
     :class="{'own-goal': currentUser.id == goal.User.id, 'done-goal': goal.Done, 'opening-goal': enlarge}"
   >
     <div class="flex bg-primary w-full flex-row justify-between text-gray-300">
@@ -12,7 +12,7 @@
       <div v-else-if="daysRemaining > 0" class="text-sm">{{ daysRemaining }} days remaining</div>
       <div v-else class="text-sm">expired</div>
     </div>
-    <div class="flex w-full justify-center text-lg">{{ goal.weeklyGoal }}</div>
+    <div class="flex w-full justify-center text-lg overflow-hidden md:h-32 items-center">{{ goal.weeklyGoal }}</div>
     <div class="flex w-full flex-row items-center justify-end">
       <!-- <div v-show="editable" class="text-2xl flex items-center">
         <i class="las la-check mr-2"></i>
