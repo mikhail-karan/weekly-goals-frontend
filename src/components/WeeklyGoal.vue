@@ -12,7 +12,7 @@
       <div v-else-if="daysRemaining > 0" class="text-sm">{{ daysRemaining }} days remaining</div>
       <div v-else class="text-sm">expired</div>
     </div>
-    <div class="flex w-full justify-center text-lg overflow-hidden md:h-32 items-center">{{ goal.weeklyGoal }}</div>
+    <div class="goal-text flex w-full justify-center text-lg overflow-auto md:h-32 items-center">{{ goal.weeklyGoal }}</div>
     <div class="flex w-full flex-row items-center justify-end">
       <!-- <div v-show="editable" class="text-2xl flex items-center">
         <i class="las la-check mr-2"></i>
@@ -109,5 +109,18 @@ export default {
 .opening-goal {
     @apply w-140 h-96
   }
+
+.goal-text::-webkit-scrollbar {
+  width: 0.3em;
+}
+
+.goal-text::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.goal-text::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
 
 </style>
