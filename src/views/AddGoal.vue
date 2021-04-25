@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col items-center h-3/4">
+  <div class="flex flex-col items-center">
     <div
-      class="flex w-1/2 h-3/4 xs:h=1/2 items-center justify-center border-purple-600 border-b-2 xs:w-full sm:w-3/4"
+      class="flex container xs:h=1/2 items-center justify-center border-purple-600 border-b-2 xs:w-full"
     >
       <div
-        class="card flex flex-col w-5/6 h-3/4 shadow-lg rounded-3xl justify-around text-white m-5 pt-2 pb-2 pl-4 pr-4"
+        class="card flex flex-col w-180 h-48 shadow-lg rounded-3xl justify-around text-white m-5 pt-2 pb-2 pl-4 pr-4"
       >
         <div
           class="flex bg-primary w-full flex-row justify-between text-gray-300 text-lg xs:text-sm"
@@ -37,9 +37,9 @@
         </div>
       </div>
     </div>
-    <div class="cards flex w-4/6 flex-col h-full flex-wrap xs:w-full">
+    <div class="cards flex container flex-col flex-wrap xs:w-full">
       <h2 class="text-white text-2xl mt-3 h-7 md:ml-4 xs:text-center">{{user.username}}'s Goals</h2>
-      <div class="flex flex-row xs:flex-col xs:justify-start xs:items-center xs:w-full">
+      <div class="flex flex-row flex-wrap xs:flex-col xs:justify-start xs:items-center xs:w-full">
         <weekly-goal v-for="goal in reversedUserGoals" :key="goal.id" :goal="goal" />
       </div>
       

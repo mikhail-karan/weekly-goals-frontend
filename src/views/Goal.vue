@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col items-center h-3/4">
+  <div class="flex flex-col items-center">
     <div
-      class="flex w-1/2 h-3/4 xs:h=1/2 items-center border-purple-600 border-b-2 justify-center xs:w-full sm:w-3/4"
+      class="flex w-1/2 xs:h=1/2 items-center border-purple-600 border-b-2 justify-center xs:w-full sm:w-3/4"
     >
       <div
-        class="card flex flex-col w-5/6 h-3/4 shadow-lg rounded-3xl justify-around text-white m-5 pt-2 pb-2 pl-4 pr-4"
+        class="card flex flex-col w-180 h-48 shadow-lg rounded-3xl justify-around text-white m-5 pt-2 pb-2 pl-4 pr-4"
         :class="{ 'done-goal': weeklyGoal.Done }"
       >
         <div
@@ -26,6 +26,7 @@
           rows="3"
           ref="goalInput"
           name="goal"
+          :maxlength="maxCharCount"
           v-model="goal"
           class="w-3/4 xs:w-5/6 m-auto bg-primary border-primary text-white p-2 outline-none focus:border-purple-500 border-2"
           placeholder="Enter weekly goal"
@@ -40,8 +41,12 @@
         </div>
         <div
           class="flex w-full flex-row justify-end"
-          :class="{ 'justify-between': editable && !editClicked }"
+          :class="{ 'justify-between': editable }"
         >
+          <div v-if="editClicked" class="text-lg flex items-center text-gray-300">
+            <div>{{currentCharCount}}/</div>
+            <div>{{maxCharCount}} max</div>
+          </div>
           <div
             v-show="editable && !editClicked"
             class="text-2xl flex items-center"
@@ -72,9 +77,9 @@
         </div>
       </div>
     </div>
-    <div class=" flex w-4/6 flex-col flex-wrap xs:w-full">
-      <h2 class="text-white text-2xl mt-3 h-7 md:ml-4 xs:text-center">{{user.username}}'s Goals</h2>
-      <div class="flex cards flex-row xs:flex-col xs:justify-start xs:items-center xs:w-full">
+    <div class="flex container flex-col h-1/2 flex-wrap xs:w-full">
+      <h2 class="text-white text-2xl md:ml-4 xs:text-center">{{user.username}}'s Goals</h2>
+      <div class="flex cards flex-row flex-wrap xs:flex-col xs:justify-start xs:items-center xs:w-full">
         <weekly-goal v-for="goal in reversedUserGoals" :key="goal.id" :goal="goal" />
       </div>
       
@@ -96,6 +101,7 @@ export default {
       daysRemaining: 0,
       editable: false,
       editClicked: false,
+      maxCharCount: 240,
       goal: "",
     };
   },
@@ -115,11 +121,14 @@ export default {
       return daysRemaining;
     },
     makeEditable() {
-      this.editClicked = true;
-      console.log(this.$refs);
-      nextTick(() => {
-        this.$refs.goalInput.focus();
-      });
+      if (this.currentUser.id == this.user.id){
+        this.editClicked = true;
+        console.log(this.$refs);
+        nextTick(() => {
+          this.$refs.goalInput.focus();
+        });
+      }
+      
     },
     markAsDone(goal) {
       let doneGoal = goal;
@@ -190,6 +199,9 @@ export default {
     baseUrl: function(){
       return this.$store.getters.getUrl
     },
+    currentCharCount: function(){
+      return this.goal.length
+    }
   },
 };
 </script>
