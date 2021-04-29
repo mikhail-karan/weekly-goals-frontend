@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto "> 
+  <div class="container mx-auto" > 
     <div class="flex flex-row flex-wrap xs:justify-center" v-if="loadingDone">
       <WeeklyGoal v-for="goal in weeklyGoals" :key="goal.id" :goal="goal" />
     </div>
@@ -32,7 +32,7 @@ export default {
     WeeklyGoal,
     LoadingGoal
   },
-  created(){
+  mounted(){
     const baseUrl = this.$store.getters.getUrl
     axios.get(baseUrl + 'weekly-goals?Done_ne=true')
     .then(res => {
@@ -44,9 +44,10 @@ export default {
       this.weeklyGoals = res.data.reverse()
     })
   },
+  computed: {
+    refreshGoalsKey(){
+      return this.$store.getters.getGoalsKey
+    }
+  }
 }
 </script>
-
-<style>
-  
-</style>

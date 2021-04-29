@@ -194,7 +194,7 @@ export default {
       return this.$store.getters.getUser;
     },
     reversedUserGoals() {
-      return this.usersGoals.reverse();
+      return this.usersGoals.slice(0).reverse();
     },
     baseUrl: function(){
       return this.$store.getters.getUrl

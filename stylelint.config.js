@@ -1,14 +1,6 @@
 module.exports = {
   extends: ["stylelint-config-standard"],
   rules: {
-    "block-no-empty": null,
-    "comment-empty-line-before": [
-      "always",
-      {
-        "ignore": ["stylelint-commands", "after-comment"]
-      }
-    ],
-    "max-empty-lines": 2,
     "at-rule-no-unknown": [
       true,
       {

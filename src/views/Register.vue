@@ -251,7 +251,6 @@ export default {
         return
       }
       const baseUrl = this.$store.getters.getUrl
-      debugger
       axios
         .post(baseUrl + "auth/local/register", {
           username: this.name,

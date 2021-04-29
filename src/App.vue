@@ -1,10 +1,12 @@
 <template>
   <div class="App h-full">
+    <!-- <Notification v-if="notificationActive" /> -->
+    <!-- <alert-popup v-if="alertPopup" /> -->
     <top-bar />
     <Header />
     <router-view v-slot="{ Component }">
       <transition name="fade" mode="out-in">
-        <component class="min-height" :is="Component" />
+        <component class="min-height" :is="Component" :key="refreshGoalsKey" />
       </transition>
     </router-view>
     <Footer />
@@ -15,10 +17,14 @@
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 import TopBar from "./components/HattBar.vue";
+import Notification from "./components/Notification.vue";
+import AlertPopup from "./components/AlertPopup.vue";
 import jwt_decode from "jwt-decode";
 export default {
   data() {
-    return {};
+    return {
+      notificationActive: false
+    };
   },
   created() {
     console.log(import.meta.env)
@@ -37,8 +43,19 @@ export default {
   components: {
     Header,
     TopBar,
-    Footer
+    Footer,
+    Notification,
+    AlertPopup
   },
+  computed: {
+    alertPopup() {
+      return this.$store.getters.getAlert
+    },
+    refreshGoalsKey(){
+      return this.$store.getters.getGoalsKey
+    }
+  }
+
 };
 </script>
 
@@ -48,8 +65,8 @@ export default {
 html,
 body,
 #app {
-  font-family: "Josefin Sans", sans-serif;
   @apply bg-backgroundColor h-full;
+  font-family: "Josefin Sans", sans-serif;
 }
 
 h1,
