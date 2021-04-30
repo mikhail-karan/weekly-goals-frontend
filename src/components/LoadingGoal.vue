@@ -25,6 +25,11 @@ export default {
 .card {
   @apply bg-primary;
   min-width: 17.5rem;
+  background: linear-gradient(270deg, #2E3A48 , #7B78FF);
+  background-size: 400% 400%;
+  -webkit-animation: AnimationName 3s ease infinite;
+  -moz-animation: AnimationName 3s ease infinite;
+  animation: AnimationName 3s ease infinite;
 }
 
 .encourage:hover {
@@ -41,15 +46,6 @@ export default {
 
 .opening-goal {
   @apply w-140 h-96;
-}
-
-.card {
-  background: linear-gradient(270deg, #2E3A48 , #7B78FF);
-  background-size: 400% 400%;
-
-  -webkit-animation: AnimationName 3s ease infinite;
-  -moz-animation: AnimationName 3s ease infinite;
-  animation: AnimationName 3s ease infinite;
 }
 
 @-webkit-keyframes AnimationName {

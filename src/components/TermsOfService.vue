@@ -1,6 +1,6 @@
 <template>
   <section
-    class="mx-2 overflow-y-auto h-inherit flex flex-col rounded-lg bg-cardColor xl:w-3/4 lg:w-11/12 lg:shadow-xl w-full px-8 py-24 border-gray-100 rounded-lg bg-blue-1300 lg:w-8/12 lg:px-24 lg:py-4 lg:rounded-l-none text-white"
+    class="mx-2 overflow-y-auto h-inherit flex flex-col bg-cardColor xl:w-3/4 lg:shadow-xl w-full px-8 py-24 border-gray-100 rounded-lg bg-blue-1300 lg:w-8/12 lg:px-24 lg:py-4 lg:rounded-l-none text-white"
   >
     <div
       @click="$emit('go-back')"

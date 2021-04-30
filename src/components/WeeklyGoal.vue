@@ -91,7 +91,6 @@ export default {
 <style>
 .card {
   @apply bg-primary;
-  
   min-width: 18.5rem;
 }
 

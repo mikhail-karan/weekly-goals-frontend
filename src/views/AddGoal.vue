@@ -21,7 +21,7 @@
           :maxlength="maxCharCount"
           class="w-3/4 xs:w-5/6 m-auto bg-primary border-primary text-white p-2 outline-none focus:border-purple-500 border-2 resize-none"
           placeholder="Enter weekly goal"
-          id=""
+          id="goalInput"
         />
         <div class="flex w-full flex-row justify-between">
           <div class="text-lg flex items-center text-gray-300">
@@ -50,68 +50,71 @@
 <script>
 import axios from 'axios'
 import WeeklyGoal from '../components/WeeklyGoal.vue'
+import store from '../store'
+import {ref, computed, onMounted} from 'vue'
+
 export default {
-  name: "AddGoal",
-  data(){
-    return {
-      goal: '',
-      usersGoals: [],
-      user: {},
-      maxCharCount: 240
-    }
-  },
-  components: {
-    WeeklyGoal
-  },
-  methods: {
-    addGoal(){
-      let payload = {
-        User: this.$store.getters.getUser,
-        weeklyGoal: this.goal,
-        Done: false,
-        encouragedUsers: [
-          this.$store.getters.getUser
-        ]
-      }
-      axios.post(this.baseUrl + 'weekly-goals', payload)   
+  setup(){
+    let goal = ref('')
+    let usersGoals = ref([])
+    const user = store.getters.getUser
+    const maxCharCount = 240
+    const goalInput = ref(null)
+
+    const baseUrl = store.getters.getUrl
+
+    let reversedUserGoals = computed(()=>usersGoals.value.slice(0).reverse())
+    let currentCharCount = computed(()=>goal.value.length)
+
+    function init(){
+      goalInput.value.focus();
+      axios.get(baseUrl + 'weekly-goals?User.id='+ user.id)
       .then(res => {
         console.log(res.data)
-        axios.get(this.baseUrl + 'weekly-goals?User.id='+ this.user.id)
+        usersGoals.value = res.data
+      })
+    }
+
+    function addGoal(){
+      let payload = {
+        User: store.getters.getUser,
+        weeklyGoal: goal.value,
+        Done: false,
+        encouragedUsers: [
+          store.getters.getUser
+        ]
+      }
+      axios.post(baseUrl + 'weekly-goals', payload)   
+      .then(res => {
+        console.log(res.data)
+        axios.get(baseUrl + 'weekly-goals?User.id='+ user.id)
         .then(res => {
           console.log(res.data)
-          this.usersGoals = res.data
-          this.goal = ''
+          usersGoals.value = res.data
+          goal.value = ''
         })
       })
       .catch(error => {
         console.log(error)
       })
     }
-  },
-  mounted() {
-    this.$refs.goalInput.focus();
-    this.user = this.$store.getters.getUser
-    axios.get(this.baseUrl + 'weekly-goals?User.id='+ this.user.id)
-    .then(res => {
-      console.log(res.data)
-      this.usersGoals = res.data
-    })
+
+    onMounted(init);
+
+    return {
+      goal,
+      usersGoals,
+      user,
+      maxCharCount,
+      addGoal,
+      reversedUserGoals,
+      currentCharCount,
+      goalInput,
+      WeeklyGoal
+    }
+
 
   },
-  computed: {
-    currentUser(){
-      return this.$store.getters.getUser
-    },
-    reversedUserGoals(){
-      return this.usersGoals.reverse()
-    },
-    baseUrl: function(){
-      return this.$store.getters.getUrl
-    },
-    currentCharCount: function(){
-      return this.goal.length
-    }
-  }
 };
 </script>
 
