@@ -3,12 +3,12 @@
 
 @font-face {
   font-family: 'Open Sans';
-  src: local('Open Sans'), url(../fonts/Open_Sans/OpenSans-Regular.ttf) format('ttf');
+  src: local('Open Sans'), url(../fonts/Open_Sans/OpenSans-Regular.ttf);
 }
 
 @font-face {
   font-family: 'Francois';
-  src: local('Francois'), url(../fonts/Francois_One/FrancoisOne-Regular.ttf) format('ttf');
+  src: local('Francois'), url(../fonts/Francois_One/FrancoisOne-Regular.ttf);
 }
 
 @tailwind utilities;
