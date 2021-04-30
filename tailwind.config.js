@@ -5,6 +5,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'sans': ['Open Sans', 'Helvetica', 'Arial', 'sans-serif'],
+        'mono': ['Francois', 'ui-monospace', 'SFMono-Regular'],
+        'headings': ['Francois'],
+        'body': ['Open Sans']
+      },
       colors: {
         backgroundColor: '#1A2634',
         // backgroundColor: '#2E3A48',

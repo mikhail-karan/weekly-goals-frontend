@@ -55,19 +55,18 @@ export default {
 
 <style>
 /* @import url("https://fonts.googleapis.com/css?family=Francois+One|Josefin+Sans&display=swap"); */
-@import url('https://fonts.googleapis.com/css2?family=Francois+One&family=Open+Sans&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Francois+One&family=Open+Sans&display=swap'); */
 
 html,
 body,
 #app {
-  @apply bg-backgroundColor h-full;
-  font-family: 'Open Sans', sans-serif;
+  @apply bg-backgroundColor h-full font-body;
 }
 
 h1,
 h2,
 h3 {
-  font-family: "Francois One", sans-serif;
+  @apply font-headings;
 }
 
 .fade-enter-active,
