@@ -1,7 +1,5 @@
 <template>
   <div class="App h-full">
-    <!-- <Notification v-if="notificationActive" /> -->
-    <!-- <alert-popup v-if="alertPopup" /> -->
     <top-bar />
     <Header />
     <router-view v-slot="{ Component }">
@@ -17,56 +15,53 @@
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 import TopBar from "./components/HattBar.vue";
-import Notification from "./components/Notification.vue";
-import AlertPopup from "./components/AlertPopup.vue";
 import jwt_decode from "jwt-decode";
+import {onMounted, computed} from 'vue'
+import store from './store'
+import router from './router'
 export default {
-  data() {
-    return {
-      notificationActive: false
-    };
-  },
-  created() {
-    console.log(import.meta.env)
-    const token = this.$store.getters.getToken;
-    if (token) {
-      this.$store.dispatch("setToken", token); //Set axios headers
-      const decoded = jwt_decode(token);
-      let currentTime = new Date().getTime() / 1000;
-      if (currentTime > decoded.exp) {
-        //Check to see if auth token is expired
-        this.$store.dispatch("logout");
-        this.$router.push("/");
+  setup(props){
+
+    function init(){
+      const token = store.getters.getToken
+      if (token) {
+        store.dispatch("setToken", token); //Set axios headers
+        const decoded = jwt_decode(token);
+        let currentTime = new Date().getTime() / 1000;
+        if (currentTime > decoded.exp) {
+          //Check to see if auth token is expired
+          store.dispatch("logout");
+          router.push("/");
+        }
       }
+    }
+
+    const refreshGoalsKey = computed(() => store.getters.getGoalsKey)
+
+    onMounted(init)
+
+    return {
+      refreshGoalsKey
     }
   },
   components: {
     Header,
     TopBar,
     Footer,
-    Notification,
-    AlertPopup
-  },
-  computed: {
-    alertPopup() {
-      return this.$store.getters.getAlert
-    },
-    refreshGoalsKey(){
-      return this.$store.getters.getGoalsKey
-    }
   }
 
 };
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Francois+One|Josefin+Sans&display=swap");
+/* @import url("https://fonts.googleapis.com/css?family=Francois+One|Josefin+Sans&display=swap"); */
+@import url('https://fonts.googleapis.com/css2?family=Francois+One&family=Open+Sans&display=swap');
 
 html,
 body,
 #app {
   @apply bg-backgroundColor h-full;
-  font-family: "Josefin Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 h1,

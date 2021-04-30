@@ -91,6 +91,7 @@ export default {
 <style>
 .card {
   @apply bg-primary;
+  
   min-width: 18.5rem;
 }
 
@@ -99,15 +100,15 @@ export default {
 }
 
 .own-goal {
-  @apply border-secondaryColor border-2 shadow-xl
+  @apply border-secondaryColor border-2 shadow-xl;
 }
 
 .done-goal {
-  @apply border-green-400 border-2
+  @apply border-green-400 border-2;
 }
 
 .opening-goal {
-  @apply w-140 h-96
+  @apply w-140 h-96;
 }
 
 .goal-text::-webkit-scrollbar {
