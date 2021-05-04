@@ -8,6 +8,7 @@
       </transition>
     </router-view>
     <Footer />
+    <cookie-law theme="dark-lime"></cookie-law>
   </div>
 </template>
 
@@ -41,14 +42,12 @@ export default {
     onMounted(init)
 
     return {
-      refreshGoalsKey
+      refreshGoalsKey,
+      Header,
+      TopBar,
+      Footer,
     }
   },
-  components: {
-    Header,
-    TopBar,
-    Footer,
-  }
 
 };
 </script>
