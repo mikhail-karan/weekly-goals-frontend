@@ -1,7 +1,7 @@
 
 # Weekly Growth Goals Frontend
 
-The Vue3 frontend for the [HTML All The Things](www.htmlallthethings.com) Weekly Growth Goals application. The application is meant to allow users to create an account, create goals that can be viewewd by the community. The community can then 'encourage' each other and keep track of their own goals. 
+The Vue3 frontend for the [HTML All The Things](https://www.htmlallthethings.com/) Weekly Growth Goals application. The application is meant to allow users to create an account, create goals that can be viewewd by the community. The community can then 'encourage' each other and keep track of their own goals. 
 
   
 ## Live Link
