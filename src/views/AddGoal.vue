@@ -76,10 +76,12 @@ export default {
     }
 
     function addGoal(){
+      const _created = new Date()
       let payload = {
         User: store.getters.getUser,
         weeklyGoal: goal.value,
         Done: false,
+        Created: _created,
         encouragedUsers: [
           store.getters.getUser
         ]

@@ -164,7 +164,13 @@ export default {
           console.log(res.data);
           this.weeklyGoal = res.data;
           this.goal = res.data.weeklyGoal;
-          this.daysRemaining = this.weekCalculation(this.weeklyGoal.created_at);
+          if (!this.goal.Created){
+            this.daysRemaining = this.weekCalculation(this.weeklyGoal.created_at)
+          }
+          else {
+            this.daysRemaining = this.weekCalculation(this.weeklyGoal.Created)
+          }
+          
           this.user = res.data.User;
           if (this.user.username == this.currentUser.username) {
             this.editable = true;

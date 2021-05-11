@@ -48,7 +48,13 @@ export default {
   },
   methods: {
     weekCalculation() {
-      const createdAtStr = Date.parse(this.goal.created_at);
+      let createdAtStr = {}
+      if (!this.goal.Created){
+        createdAtStr = Date.parse(this.goal.created_at);
+      }
+      else {
+        createdAtStr = Date.parse(this.goal.Created);
+      }
       const oneDay = 24 * 60 * 60 * 1000;
       const today = Date.now();
       console.log('today: ' + today, 'created: ' + createdAtStr)
