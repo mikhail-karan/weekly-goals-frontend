@@ -34,14 +34,15 @@ export default {
   },
   mounted(){
     const baseUrl = this.$store.getters.getUrl
-    axios.get(baseUrl + 'weekly-goals?Done_ne=true')
+    axios.get(baseUrl + 'active-goals')
+    // axios.get(baseUrl + 'weekly-goals?Done_ne=true&_sort=Created:asc')
     .then(res => {
       setTimeout(()=> {
         this.loadingDone = true
       },300)
       
       console.log(res.data)
-      this.weeklyGoals = res.data.reverse()
+      this.weeklyGoals = res.data
     })
   },
   computed: {
