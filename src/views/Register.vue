@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-row items-center w-full pt-4 pb-4 flex-wrap">
-    <section class="flex flex-col items-center h-full md:flex-row w-full">
-      <div class="container mx-auto h-full">
-        <div class="flex justify-center px-2 py-6 h-full">
+  <div class="flex flex-row flex-wrap items-center w-full pt-4 pb-4">
+    <section class="flex flex-col items-center w-full h-full md:flex-row">
+      <div class="container h-full mx-auto">
+        <div class="flex justify-center h-full px-2 py-6">
           <terms-of-service v-if="showPrivacy" @go-back="showPrivacy = false" />
           <div
           v-else
@@ -27,13 +27,14 @@
             </div>
             
             <div
-              class="w-full px-8 py-24 xs:py-9 border-gray-100 rounded-lg bg-blue-1300 lg:w-8/12 lg:px-24 lg:py-4 lg:rounded-l-none s"
+              class="w-full px-8 py-24 border-gray-100 rounded-lg xs:py-9 bg-blue-1300 lg:w-8/12 lg:px-24 lg:py-4 lg:rounded-l-none s"
             >
               <div class="relative z-10 text-left">
                 <div class="flex justify-enter lg:py-6">
-                  <button
+                  <a
+                    :href="$store.getters.getUrl + 'connect/google'"
                     type="button"
-                    class="inline-flex opacity-80 pointer-events-none w-full px-4 py-3 font-semibold text-secondary border border-gray-300 rounded-lg bg-blue-1300 hover:bg-blue-700 hover:text-white focus:bg-gray-100"
+                    class="inline-flex w-full px-4 py-3 font-semibold border border-gray-300 rounded-lg text-secondary bg-blue-1300 hover:bg-blue-700 hover:text-white focus:bg-gray-100"
                   >
                     <div class="flex items-center justify-center">
                       <svg
@@ -74,10 +75,10 @@
                       </svg>
                       <span class="ml-4 text-white"> Log in with Google </span>
                     </div>
-                  </button>
+                  </a>
                   <button
                     type="button"
-                    class="inline-flex opacity-70 pointer-events-none px-4 py-3 ml-8 font-semibold text-white border border-gray-300 rounded-lg bg-blue-1300 hover:bg-blue-870 focus:bg-gray-100 hover:text-blue-500"
+                    class="inline-flex px-4 py-3 ml-8 font-semibold text-white border border-gray-300 rounded-lg pointer-events-none opacity-70 bg-blue-1300 hover:bg-blue-870 focus:bg-gray-100 hover:text-blue-500"
                   >
                     <div class="flex items-center justify-center">
                       <svg
@@ -165,7 +166,7 @@
                         placeholder="Confirm"
                       />
                     </div>
-                    <div class="w-full flex px-3 items-center pt-4">
+                    <div class="flex items-center w-full px-3 pt-4">
                       
                       <input
                         class="w-5 h-5"
@@ -176,7 +177,7 @@
                         value="newsletter"
                       >
                       <label
-                        class="font-medium text-gray-400 ml-2 text-xs"
+                        class="ml-2 text-xs font-medium text-gray-400"
                         for="newsletter"
                       >
                         Yes, sign me up for the HTML All The Things newsletter
@@ -184,7 +185,7 @@
                     </div>
 
                   </div>
-                  <p class="font-medium text-purple-500 ml-2 text-xs my-0">By creating an account, you agree with our <span @click="showPrivacy = true" class="underline text-purple-400 hover:text-purple-500 cursor-pointer">Terms of Service</span></p>
+                  <p class="my-0 ml-2 text-xs font-medium text-purple-500">By creating an account, you agree with our <span @click="showPrivacy = true" class="text-purple-400 underline cursor-pointer hover:text-purple-500">Terms of Service</span></p>
                   <button
                     @click.prevent="register"
                     type="submit"
@@ -272,6 +273,9 @@ export default {
           console.log("An error occurred:", error);
         });
     },
+    googleLogin(){
+
+    }
   },
 };
 </script>

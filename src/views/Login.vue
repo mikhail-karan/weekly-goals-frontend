@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row items-center w-full h-3/4 pt-4 pb-4 flex-wrap xs:items-start xs:justify-center">
+  <div class="flex flex-row flex-wrap items-center w-full pt-4 pb-4 h-3/4 xs:items-start xs:justify-center">
     <section class="flex flex-col items-center w-full h-3/4 xs:h-3/5 md:flex-row ">
       <div class="container mx-auto">
         <div class="flex justify-center px-2 py-6">
@@ -23,15 +23,16 @@
               </div>
             </div>
             <div
-              class="w-full px-8 py-24 xs:py-9 border-gray-100 rounded-lg bg-blue-1300 lg:w-8/12 lg:px-24 lg:py-4 lg:rounded-l-none s"
+              class="w-full px-8 py-24 border-gray-100 rounded-lg xs:py-9 bg-blue-1300 lg:w-8/12 lg:px-24 lg:py-4 lg:rounded-l-none "
             >
               <div class="relative z-10 text-left">
                 <div class="flex justify-enter lg:py-6">
-                  <button
-                    type="button"
-                    class="inline-flex opacity-80 pointer-events-none w-full px-4 py-3 font-semibold text-secondary border border-gray-300 rounded-lg bg-blue-1300 hover:bg-blue-700 hover:text-white focus:bg-gray-100"
+                  <a 
+                    :href="$store.getters.getUrl + 'connect/google'"
+                    class="inline-flex w-full px-4 py-3 font-semibold border border-gray-300 rounded-lg text-secondary bg-blue-1300 hover:bg-blue-700 hover:text-white focus:bg-gray-100"
                   >
-                    <div class="flex items-center justify-center">
+                    <div 
+                    class="flex items-center justify-center">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -70,10 +71,10 @@
                       </svg>
                       <span class="ml-4 text-white"> Log in with Google </span>
                     </div>
-                  </button>
+                  </a>
                   <button
                     type="button"
-                    class="inline-flex opacity-80 pointer-events-none px-4 py-3 ml-8 font-semibold text-white border border-gray-300 rounded-lg bg-blue-1300 hover:bg-blue-870 focus:bg-gray-100 hover:text-blue-500"
+                    class="inline-flex px-4 py-3 ml-8 font-semibold text-white border border-gray-300 rounded-lg pointer-events-none opacity-80 bg-blue-1300 hover:bg-blue-870 focus:bg-gray-100 hover:text-blue-500"
                   >
                     <div class="flex items-center justify-center">
                       <svg

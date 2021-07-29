@@ -1,5 +1,5 @@
 <template>
-  <div class="App h-full">
+  <div class="h-full App">
     <top-bar />
     <Header />
     <router-view v-slot="{ Component }">
@@ -21,7 +21,7 @@ import {onMounted, computed} from 'vue'
 import store from './store'
 import router from './router'
 export default {
-  setup(props){
+  setup(){
 
     function init(){
       const token = store.getters.getToken
