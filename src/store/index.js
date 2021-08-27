@@ -7,7 +7,18 @@ const store = createStore({
       user: JSON.parse(window.localStorage.getItem('user')) || {},
       token: window.localStorage.getItem('token') || '',
       baseUrl: import.meta.env.VITE_APP_URL,
-      goalKey: 1
+      goalKey: 1,
+      daysOfTheWeek: [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday'
+      ],
+      activeDay: new Date().getDay()
     }
   },
   mutations: {
@@ -28,6 +39,9 @@ const store = createStore({
     increment_goal_key(state){
       state.goalKey++
       console.log(state.goalKey)
+    },
+    change_day(state, day){
+      state.activeDay = day
     }
   },
   actions: {
@@ -44,6 +58,9 @@ const store = createStore({
     },
     incrementGoalKey({commit}){
       commit('increment_goal_key')
+    },
+    changeDay({commit}, day){
+      commit('change_day', day)
     }
    
 
@@ -52,7 +69,8 @@ const store = createStore({
     getUser: (state) => state.user,
     getToken: (state) => state.token,
     getUrl: (state) => state.baseUrl,
-    getGoalsKey: (state) => state.goalKey
+    getGoalsKey: (state) => state.goalKey,
+    getDay: (state) => state.activeDay
   }
 })
 

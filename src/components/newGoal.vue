@@ -1,0 +1,168 @@
+<template>
+  <div class="flex flex-col justify-center py-6 sm:py-12">
+  <div class="relative flex flex-col p-6 space-y-5 bg-cardColor sm:max-w-xl sm:mx-auto rounded-2xl">
+    <div class="flex justify-between text-xs text-gray-400">
+      <div class="flex items-center space-x-2">
+        <img src="https://eu.ui-avatars.com/api/?name=Mike" class="w-8 rounded-full" />
+        <div class="">Mike</div>
+      </div>
+      <div>4 Days Left</div>
+    </div>
+    <div>
+      <div class="flex flex-col pr-10 space-y-5 overflow-auto text-sm text-gray-300 h-36 goal-text">
+        <div v-for="goal in user.currentWeeklyGoals" :key="goal.goal" class="flex items-center space-x-4">
+          <input @click="toggleGoal(goal.id)" type="checkbox" class="checkbox">
+          <div :class="{'line-through': goal.status === 'done' }">{{goal.goal}}</div>
+          <i @click="removeGoal(goal.id)" class="las la-times text-error"></i>
+        </div>
+        <div class="flex items-center w-3/4 p-2 space-x-4">
+          <input type="text" v-model="newGoalText" placeholder="add goal" class="w-3/4 input">
+          <i
+            @click="addGoal"
+            class="text-3xl cursor-pointer las la-plus hover:text-purple-600 hover:scale-110"
+          ></i>
+        </div>
+
+        <!-- <div class="flex space-x-4">
+          <div class="w-5 h-5 bg-purple-300 rounded"></div>
+          <div>Finish UX/UI of Weekly Growth Goals app redesign</div>
+        </div>
+        <div class="flex space-x-4">
+          <div class="w-5 h-5 bg-purple-300 rounded"></div>
+          <div>Start an hour a day workout habit</div>
+        </div>
+        <div class="flex space-x-4">
+          <div class="w-5 h-5 bg-purple-300 rounded"></div>
+          <div>Finish UX/UI of Weekly Growth Goals app redesign</div>
+        </div> -->
+      </div>
+    </div>
+    <div  class="flex justify-center space-x-3 status-bar">
+      <div :class="{'active-status': activeDay === 1}" @click="store.dispatch('changeDay', 1)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
+        <div class="day-ab">M</div>
+        <div  class="w-6 h-3 bg-purple-400 rounded-full pill"></div>
+      </div>
+      <div :class="{'active-status': activeDay === 2}" @click="store.dispatch('changeDay', 2)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
+        <div class="day-ab">T</div>
+        <div  class="w-6 h-3 bg-purple-400 rounded-full pill"></div>
+      </div>
+      <div :class="{'active-status': activeDay === 3}" @click="store.dispatch('changeDay', 3)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
+        <div class="day-ab">W</div>
+        <div  class="w-6 h-3 bg-red-400 rounded-full pill"></div>
+      </div>
+      <div :class="{'active-status': activeDay === 4}" @click="store.dispatch('changeDay', 4)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
+        <div class="day-ab">T</div>
+        <div  class="w-6 h-3 bg-gray-300 rounded-full pill"></div>
+      </div>
+      <div :class="{'active-status': activeDay === 5}" @click="store.dispatch('changeDay', 5)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
+        <div class="day-ab">F</div>
+        <div  class="w-6 h-3 bg-gray-300 rounded-full pill"></div>
+      </div>
+      <div :class="{'active-status': activeDay === 6}" @click="store.dispatch('changeDay', 6)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
+        <div class="day-ab">S</div>
+        <div class="w-6 h-3 bg-gray-300 rounded-full pill"></div>
+      </div>
+      <div :class="{'active-status': activeDay === 0}" @click="store.dispatch('changeDay', 0)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
+        <div class="day-ab">S</div>
+        <div class="w-6 h-3 bg-gray-300 rounded-full pill"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</template>
+
+<script setup>
+  import store from '../store'
+  import {ref, computed} from 'vue'
+
+
+
+  // const props = defineProps({
+  //   activeDay: Number
+  // })
+
+  const activeDay = computed(() => store.getters.getDay)
+
+  
+
+  const newGoalText = ref('')
+
+  
+  // const activeDay = ref(new Date().getDay())
+
+  const user = ref({
+    currentWeeklyGoals: [
+      {
+        id: 1,
+        goal: 'Read some books',
+        status: 'created'
+      },
+      {
+        id: 2,
+        goal: 'Workout 3x this week',
+        status: 'created'
+      },
+      {
+        id: 3,
+        goal: 'Finish project A and B',
+        status: 'created'
+      },
+
+    ]
+  })
+
+  function addGoal(){
+    if (newGoalText.value){
+      user.value.currentWeeklyGoals.push({
+        id: Math.ceil(Math.random() * 10000),
+        goal: newGoalText.value,
+        status: 'created',
+      })
+      newGoalText.value = ''
+    }
+  }
+
+  function toggleGoal(goalId){
+    const toggleIndex = user.value.currentWeeklyGoals.findIndex(_goal => _goal.id === goalId)
+    let goal = user.value.currentWeeklyGoals[toggleIndex]
+
+    if (goal.status != 'done'){
+      goal.status = 'done'
+    }
+    else {
+      goal.status = 'created'
+    }
+
+    console.log(user.value.currentWeeklyGoals[toggleIndex])
+    
+  }
+
+  function removeGoal(goalId){
+    const toggleIndex = user.value.currentWeeklyGoals.findIndex(_goal => _goal.id === goalId)
+    user.value.currentWeeklyGoals.splice(toggleIndex, 1)
+    
+  }
+</script>
+
+<style>
+.goal-text::-webkit-scrollbar {
+  width: 0.3em;
+}
+
+.goal-text::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.goal-text::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+.active-status .pill {
+  @apply border-2 shadow-xl w-7 border-secondary;
+}
+.active-status .day-ab {
+  @apply font-bold;
+}
+
+</style>

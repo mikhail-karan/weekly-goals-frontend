@@ -4,22 +4,22 @@
       class="flex w-1/2 xs:h=1/2 items-center border-purple-600 border-b-2 justify-center xs:w-full sm:w-3/4"
     >
       <div
-        class="card flex flex-col w-180 h-48 shadow-lg rounded-3xl justify-around text-white m-5 pt-2 pb-2 pl-4 pr-4"
+        class="flex flex-col justify-around h-48 pt-2 pb-2 pl-4 pr-4 m-5 text-white shadow-lg card w-180 rounded-3xl"
         :class="{ 'done-goal': weeklyGoal.Done }"
       >
         <div
-          class="flex bg-primary w-full flex-row justify-between text-gray-300"
+          class="flex flex-row justify-between w-full text-gray-300 bg-primary"
         >
-          <router-link to="/register" class="text-sm">{{
+          <div class="text-sm">{{
             user.username
-          }}</router-link>
+          }}</div>
           <div v-if="weeklyGoal.Done" class="text-sm">done</div>
           <div v-else-if="daysRemaining > 0" class="text-sm">
             {{ daysRemaining }} days remaining
           </div>
           <div v-else class="text-sm">expired</div>
         </div>
-        <!-- <div class="flex w-full justify-center text-lg">This is a test weekly goal</div> -->
+        <!-- <div class="flex justify-center w-full text-lg">This is a test weekly goal</div> -->
         <textarea
           v-if="editClicked"
           @blur="editGoal(weeklyGoal)"
@@ -28,58 +28,58 @@
           name="goal"
           :maxlength="maxCharCount"
           v-model="goal"
-          class="w-3/4 xs:w-5/6 m-auto bg-primary border-primary text-white p-2 outline-none focus:border-purple-500 border-2"
+          class="w-3/4 p-2 m-auto text-white border-2 outline-none xs:w-5/6 bg-primary border-primary focus:border-purple-500"
           placeholder="Enter weekly goal"
           id=""
         />
         <div
           @click="makeEditable"
           v-else
-          class="w-3/4 xs:w-5/6 overflow-auto m-auto bg-primary border-primary text-white p-2 outline-none focus:border-purple-500 border-2"
+          class="w-3/4 p-2 m-auto overflow-auto text-white border-2 outline-none xs:w-5/6 bg-primary border-primary focus:border-purple-500"
         >
           {{ weeklyGoal.weeklyGoal }}
         </div>
         <div
-          class="flex w-full flex-row justify-end"
+          class="flex flex-row justify-end w-full"
           :class="{ 'justify-between': editable }"
         >
-          <div v-if="editClicked" class="text-lg flex items-center text-gray-300">
+          <div v-if="editClicked" class="flex items-center text-lg text-gray-300">
             <div>{{currentCharCount}}/</div>
             <div>{{maxCharCount}} max</div>
           </div>
           <div
             v-show="editable && !editClicked"
-            class="text-2xl flex items-center"
+            class="flex items-center text-2xl"
           >
             <i
               @click="markAsDone(weeklyGoal)"
-              class="las la-check mr-2 text-green-500"
+              class="mr-2 text-green-500 las la-check"
               :class="{ inactive: weeklyGoal.Done }"
             ></i>
             <i
               @click="deleteGoal(weeklyGoal)"
-              class="lar la-trash-alt text-red-500"
+              class="text-red-500 lar la-trash-alt"
             ></i>
           </div>
           <div
             @click="editGoal(weeklyGoal)"
             v-if="editClicked"
-            class="text-2xl w-10 h-10 xs:w-9 xs:h-9 rounded-full shadow-md flex justify-center items-center bg-purple-500 transition duration-300 ease-in-out hover:bg-purple-600 transform hover:-translate-y-1 hover:scale-110"
+            class="flex items-center justify-center w-10 h-10 text-2xl transition duration-300 ease-in-out transform bg-purple-500 rounded-full shadow-md xs:w-9 xs:h-9 hover:bg-purple-600 hover:-translate-y-1 hover:scale-110"
           >
             <i class="las la-plus"></i>
           </div>
           <div
             v-else
-            class="text-2xl w-10 h-10 xs:w-9 xs:h-9 rounded-full shadow-md flex justify-center items-center bg-purple-500 transition duration-300 ease-in-out hover:bg-purple-600 transform hover:-translate-y-1 hover:scale-110"
+            class="flex items-center justify-center w-10 h-10 text-2xl transition duration-300 ease-in-out transform bg-purple-500 rounded-full shadow-md xs:w-9 xs:h-9 hover:bg-purple-600 hover:-translate-y-1 hover:scale-110"
           >
             <i class="las la-hands-helping"></i>
           </div>
         </div>
       </div>
     </div>
-    <div class="flex container flex-col h-1/2 flex-wrap xs:w-full">
-      <h2 class="text-white text-2xl md:ml-4 xs:text-center">{{user.username}}'s Goals</h2>
-      <div class="flex cards flex-row flex-wrap xs:flex-col xs:justify-start xs:items-center xs:w-full">
+    <div class="container flex flex-col flex-wrap h-1/2 xs:w-full">
+      <h2 class="text-2xl text-white md:ml-4 xs:text-center">{{user.username}}'s Goals</h2>
+      <div class="flex flex-row flex-wrap cards xs:flex-col xs:justify-start xs:items-center xs:w-full">
         <weekly-goal v-for="goal in reversedUserGoals" :key="goal.id" :goal="goal" />
       </div>
       

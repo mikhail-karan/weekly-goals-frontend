@@ -1,6 +1,6 @@
 <template>
   <div class="h-full App">
-    <top-bar />
+    <TopBar />
     <Header />
     <router-view v-slot="{ Component }">
       <transition name="fade" mode="out-in">
@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 import TopBar from "./components/HattBar.vue";
@@ -20,8 +20,6 @@ import jwt_decode from "jwt-decode";
 import {onMounted, computed} from 'vue'
 import store from './store'
 import router from './router'
-export default {
-  setup(){
 
     function init(){
       const token = store.getters.getToken
@@ -41,15 +39,6 @@ export default {
 
     onMounted(init)
 
-    return {
-      refreshGoalsKey,
-      Header,
-      TopBar,
-      Footer,
-    }
-  },
-
-};
 </script>
 
 <style>

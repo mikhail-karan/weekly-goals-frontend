@@ -151,9 +151,11 @@ module.exports = {
           },
         }
       })
-    }
+    },
+    require('daisyui'),
   ],
   corePlugins: {
     container: false
   },
+  
 };

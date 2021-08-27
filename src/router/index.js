@@ -6,9 +6,11 @@ import AddGoal from '../views/AddGoal.vue'
 import MyGoals from '../views/MyGoals.vue'
 import LoginRedirect from '../views/LoginRedirect.vue'
 import Goal from '../views/Goal.vue'
+import DemoGoal from '../views/DemoGoal.vue'
 
 const routes = [
-  {path: '/', component: WeeklyGoals},
+  {path: '/', component: DemoGoal},
+  {path: '/weeklyGoals', component: WeeklyGoals},
   {path: '/register', component: Register},
   {path: '/login', component: Login},
   {path: '/addgoal', component: AddGoal},
