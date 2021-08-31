@@ -18,7 +18,50 @@ const store = createStore({
         'Saturday',
         'Sunday'
       ],
-      activeDay: new Date().getDay()
+      activeDay: new Date().getDay(),
+      userNew: {
+        currentWeeklyGoals: [
+        {
+          id: 1,
+          goal: 'Read some books',
+          status: 'created'
+        },
+        {
+          id: 2,
+          goal: 'Workout 3x this week',
+          status: 'created'
+        },
+        {
+          id: 3,
+          goal: 'Finish project A and B',
+          status: 'created'
+        },
+      ],
+      currentJournal: [
+        {
+          journal: []
+        },
+        {
+          journal: []
+        },
+        {
+          journal: []
+        },
+        {
+          journal: []
+        },
+        {
+          journal: []
+        },
+        {
+          journal: []
+        },
+        {
+          journal: []
+        },
+      ]
+    
+    }
     }
   },
   mutations: {
@@ -42,6 +85,30 @@ const store = createStore({
     },
     change_day(state, day){
       state.activeDay = day
+    },
+    add_journal_entry(state, {day, entry}){
+      state.userNew.currentJournal[day].journal.push({
+        entry: entry,
+        date: new Date().toDateString()
+      })
+    },
+    add_weekly_goal(state, goal){
+      state.userNew.currentWeeklyGoals.push(goal)
+    },
+    delete_weekly_goal(state, goalId){
+      const goalIndex = state.userNew.currentWeeklyGoals.findIndex(_goal => _goal.id === goalId)
+      state.userNew.currentWeeklyGoals.splice(goalIndex, 1)
+    },
+    toggle_weekly_goal(state, goalId){
+      const toggleIndex = state.userNew.currentWeeklyGoals.findIndex(_goal => _goal.id === goalId)
+      let goal = state.userNew.currentWeeklyGoals[toggleIndex]
+
+      if (goal.status != 'done'){
+        goal.status = 'done'
+      }
+      else {
+        goal.status = 'created'
+      }
     }
   },
   actions: {
@@ -61,6 +128,18 @@ const store = createStore({
     },
     changeDay({commit}, day){
       commit('change_day', day)
+    },
+    addJournalEntry({commit}, {day, entry}){
+      commit('add_journal_entry', {day, entry})
+    },
+    addWeeklyGoal({commit}, goal){
+      commit('add_weekly_goal', goal)
+    },
+    deleteWeeklyGoal({commit}, goalId){
+      commit('delete_weekly_goal', goalId)
+    },
+    toggleWeeklyGoal({commit}, goalId){
+      commit('toggle_weekly_goal', goalId)
     }
    
 
@@ -70,7 +149,8 @@ const store = createStore({
     getToken: (state) => state.token,
     getUrl: (state) => state.baseUrl,
     getGoalsKey: (state) => state.goalKey,
-    getDay: (state) => state.activeDay
+    getDay: (state) => state.activeDay,
+    getUserNew: (state) => state.userNew
   }
 })
 

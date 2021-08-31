@@ -40,31 +40,31 @@
     <div  class="flex justify-center space-x-3 status-bar">
       <div :class="{'active-status': activeDay === 1}" @click="store.dispatch('changeDay', 1)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
         <div class="day-ab">M</div>
-        <div  class="w-6 h-3 bg-purple-400 rounded-full pill"></div>
+        <div :class="checkDayStatus(1)" class="w-6 h-3 rounded-full pill"></div>
       </div>
       <div :class="{'active-status': activeDay === 2}" @click="store.dispatch('changeDay', 2)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
         <div class="day-ab">T</div>
-        <div  class="w-6 h-3 bg-purple-400 rounded-full pill"></div>
+        <div :class="checkDayStatus(2)" class="w-6 h-3 rounded-full pill"></div>
       </div>
       <div :class="{'active-status': activeDay === 3}" @click="store.dispatch('changeDay', 3)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
         <div class="day-ab">W</div>
-        <div  class="w-6 h-3 bg-red-400 rounded-full pill"></div>
+        <div :class="checkDayStatus(3)" class="w-6 h-3 rounded-full pill"></div>
       </div>
       <div :class="{'active-status': activeDay === 4}" @click="store.dispatch('changeDay', 4)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
         <div class="day-ab">T</div>
-        <div  class="w-6 h-3 bg-gray-300 rounded-full pill"></div>
+        <div :class="checkDayStatus(4)" class="w-6 h-3 rounded-full pill"></div>
       </div>
       <div :class="{'active-status': activeDay === 5}" @click="store.dispatch('changeDay', 5)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
         <div class="day-ab">F</div>
-        <div  class="w-6 h-3 bg-gray-300 rounded-full pill"></div>
+        <div :class="checkDayStatus(5)" class="w-6 h-3 rounded-full pill"></div>
       </div>
       <div :class="{'active-status': activeDay === 6}" @click="store.dispatch('changeDay', 6)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
         <div class="day-ab">S</div>
-        <div class="w-6 h-3 bg-gray-300 rounded-full pill"></div>
+        <div :class="checkDayStatus(6)" class="w-6 h-3 rounded-full pill"></div>
       </div>
       <div :class="{'active-status': activeDay === 0}" @click="store.dispatch('changeDay', 0)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
         <div class="day-ab">S</div>
-        <div class="w-6 h-3 bg-gray-300 rounded-full pill"></div>
+        <div :class="checkDayStatus(0)" class="w-6 h-3 rounded-full pill"></div>
       </div>
     </div>
   </div>
@@ -87,33 +87,11 @@
 
   const newGoalText = ref('')
 
-  
-  // const activeDay = ref(new Date().getDay())
-
-  const user = ref({
-    currentWeeklyGoals: [
-      {
-        id: 1,
-        goal: 'Read some books',
-        status: 'created'
-      },
-      {
-        id: 2,
-        goal: 'Workout 3x this week',
-        status: 'created'
-      },
-      {
-        id: 3,
-        goal: 'Finish project A and B',
-        status: 'created'
-      },
-
-    ]
-  })
+  const user = computed(() => store.getters.getUserNew)
 
   function addGoal(){
     if (newGoalText.value){
-      user.value.currentWeeklyGoals.push({
+      store.dispatch('addWeeklyGoal', {
         id: Math.ceil(Math.random() * 10000),
         goal: newGoalText.value,
         status: 'created',
@@ -123,24 +101,30 @@
   }
 
   function toggleGoal(goalId){
-    const toggleIndex = user.value.currentWeeklyGoals.findIndex(_goal => _goal.id === goalId)
-    let goal = user.value.currentWeeklyGoals[toggleIndex]
-
-    if (goal.status != 'done'){
-      goal.status = 'done'
-    }
-    else {
-      goal.status = 'created'
-    }
-
-    console.log(user.value.currentWeeklyGoals[toggleIndex])
+    store.dispatch('toggleWeeklyGoal', goalId)
     
   }
 
   function removeGoal(goalId){
-    const toggleIndex = user.value.currentWeeklyGoals.findIndex(_goal => _goal.id === goalId)
-    user.value.currentWeeklyGoals.splice(toggleIndex, 1)
-    
+    store.dispatch('deleteWeeklyGoal', goalId)
+  }
+
+  function checkDayStatus(day){
+    const _today = 4
+    // const _today = new Date().getDay()
+    if (day > _today || (_today !== 0 && day === 0)){
+      return 'bg-gray-300 disabled'
+    }
+    else if(user.value.currentJournal[day].journal.length > 0){
+      return 'bg-purple-400'
+    }
+    else {
+      return 'bg-red-400'
+    }
+  }
+
+  function daysLeft(){
+
   }
 </script>
 
