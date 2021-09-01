@@ -46,7 +46,7 @@ import router from './router'
 html,
 body,
 #app {
-  @apply bg-backgroundColor h-full font-body;
+  @apply h-full font-body;
 }
 
 h1,

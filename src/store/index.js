@@ -150,7 +150,8 @@ const store = createStore({
     getUrl: (state) => state.baseUrl,
     getGoalsKey: (state) => state.goalKey,
     getDay: (state) => state.activeDay,
-    getUserNew: (state) => state.userNew
+    getUserNew: (state) => state.userNew,
+    getDaysOfWeek: (state) => state.daysOfTheWeek,
   }
 })
 

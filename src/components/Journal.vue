@@ -1,21 +1,26 @@
 <template>
   <div class="flex flex-col space-y-4">
-    <div class="space-y-4" v-if="user.currentJournal[activeDay].journal.length > 0">
-      <div v-for="journal in user.currentJournal[activeDay].journal" :key="journal.id" class="py-6 card sm:py-12">
-        <div class="flex flex-row justify-end pr-6 text-xs text-gray-400">{{journal.date}}</div>
-        <p class="p-6">{{journal.entry}}</p>
-      </div>
-    </div>
-    <div class="card lg:card-side bordered">
+    
+    <div class="flex flex-col card lg:card-side bordered ">
+      
       <div @click.prevent.stop="deactivateWrite" class="card-body">
         <h2 class="card-title">Journal for {{daysOfTheWeek[activeDay]}}</h2>
-        <p>Fill out your journal daily to complete your streak</p>
+        <div class="space-y-4" v-if="user.currentJournal[activeDay].journal.length > 0">
+          <div v-for="journal in user.currentJournal[activeDay].journal" :key="journal.id" class="py-6 card sm:py-12">
+            <div class="flex flex-row justify-end pr-6 text-xs text-gray-400">{{journal.date}}</div>
+            <p class="p-6">{{journal.entry}}</p>
+            <hr>
+          </div>
+          
+        </div>
+        
+        <h3>Fill out your journal daily to complete your streak</h3>
         <div @click.prevent.stop="activateWrite" v-if="!writeActive" class="card-actions">
-          <input type="text" placeholder="Write your first entry" class="w-3/4 input input-secondary input-bordered">
+          <input type="text" :placeholder="returnPlaceholder()" class="w-3/4 input input-secondary input-bordered">
           <button class="btn btn-secondary">Write</button>
         </div>
         <div @click.prevent.stop="activateWrite" v-else class="card-actions">
-          <textarea v-model="journalEntry" ref="journalInput" class="w-full h-24 textarea textarea-bordered textarea-secondary focus" placeholder="Write your first entry"></textarea>
+          <textarea v-model="journalEntry" ref="journalInput" class="w-full h-24 textarea textarea-bordered textarea-secondary focus" :placeholder="returnPlaceholder()"></textarea>
           <button @click="addJournalEntry" class="btn btn-secondary">Post</button>
         </div>
       </div>
@@ -59,6 +64,10 @@
       })
       journalEntry.value = ''
     }
+  }
+
+  function returnPlaceholder(){
+    return user.value.currentJournal[activeDay.value].journal.length > 0 ? 'Write another entry' : 'Write your first entry'
   }
 
 </script>

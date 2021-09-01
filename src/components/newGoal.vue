@@ -1,19 +1,19 @@
 <template>
   <div class="flex flex-col justify-center py-6 sm:py-12">
-  <div class="relative flex flex-col p-6 space-y-5 bg-cardColor sm:max-w-xl sm:mx-auto rounded-2xl">
+  <div class="relative flex flex-col p-6 space-y-5 card bordered bg-cardColor sm:max-w-xl sm:mx-auto rounded-2xl">
     <div class="flex justify-between text-xs text-gray-400">
       <div class="flex items-center space-x-2">
         <img src="https://eu.ui-avatars.com/api/?name=Mike" class="w-8 rounded-full" />
         <div class="">Mike</div>
       </div>
-      <div>4 Days Left</div>
+      <div class="flex items-center">{{daysLeft()}}</div>
     </div>
     <div>
       <div class="flex flex-col pr-10 space-y-5 overflow-auto text-sm text-gray-300 h-36 goal-text">
         <div v-for="goal in user.currentWeeklyGoals" :key="goal.goal" class="flex items-center space-x-4">
           <input @click="toggleGoal(goal.id)" type="checkbox" class="checkbox">
           <div :class="{'line-through': goal.status === 'done' }">{{goal.goal}}</div>
-          <i @click="removeGoal(goal.id)" class="las la-times text-error"></i>
+          <i @click="removeGoal(goal.id)" class="cursor-pointer las la-times text-error"></i>
         </div>
         <div class="flex items-center w-3/4 p-2 space-x-4">
           <input type="text" v-model="newGoalText" placeholder="add goal" class="w-3/4 input">
@@ -110,8 +110,8 @@
   }
 
   function checkDayStatus(day){
-    const _today = 4
-    // const _today = new Date().getDay()
+    // const _today = 4
+    const _today = new Date().getDay()
     if (day > _today || (_today !== 0 && day === 0)){
       return 'bg-gray-300 disabled'
     }
@@ -124,7 +124,13 @@
   }
 
   function daysLeft(){
-
+    const _today = new Date().getDay()
+    if (_today === 0){
+      return "1 day left" 
+    }
+    else {
+      return (8 - _today) + " days left"
+    }
   }
 </script>
 
