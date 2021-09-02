@@ -1,5 +1,6 @@
 <template>
-  <div class="flex flex-col justify-center py-6 sm:py-12">
+  <div class="flex flex-col justify-center py-6 space-y-2 sm:py-12">
+  <div>{{getMonday(new Date())}} - {{getSunday(new Date())}}</div>
   <div class="relative flex flex-col p-6 space-y-5 card bordered bg-cardColor sm:max-w-xl sm:mx-auto rounded-2xl">
     <div class="flex justify-between text-xs text-gray-400">
       <div class="flex items-center space-x-2">
@@ -74,6 +75,7 @@
 <script setup>
   import store from '../store'
   import {ref, computed} from 'vue'
+  import {getMonday, getSunday, daysLeft} from '../utils/functions'
 
 
 
@@ -123,15 +125,15 @@
     }
   }
 
-  function daysLeft(){
-    const _today = new Date().getDay()
-    if (_today === 0){
-      return "1 day left" 
-    }
-    else {
-      return (8 - _today) + " days left"
-    }
-  }
+  // function daysLeft(){
+  //   const _today = new Date().getDay()
+  //   if (_today === 0){
+  //     return "1 day left" 
+  //   }
+  //   else {
+  //     return (8 - _today) + " days left"
+  //   }
+  // }
 </script>
 
 <style>
