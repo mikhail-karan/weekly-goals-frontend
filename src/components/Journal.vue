@@ -20,7 +20,7 @@
           <button class="btn btn-secondary">Write</button>
         </div>
         <div @click.prevent.stop="activateWrite" v-else class="card-actions">
-          <textarea v-model="journalEntry" ref="journalInput" class="w-full h-24 textarea textarea-bordered textarea-secondary focus" :placeholder="returnPlaceholder()"></textarea>
+          <textarea @keyup.enter="addJournalEntry" v-model="journalEntry" ref="journalInput" class="w-full h-24 textarea textarea-bordered textarea-secondary focus" :placeholder="returnPlaceholder()"></textarea>
           <button @click="addJournalEntry" class="btn btn-secondary">Post</button>
         </div>
       </div>

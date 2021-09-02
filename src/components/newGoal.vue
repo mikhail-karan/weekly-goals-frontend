@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col justify-center py-6 space-y-2 sm:py-12">
   <div>{{getMonday(new Date())}} - {{getSunday(new Date())}}</div>
-  <div class="relative flex flex-col p-6 space-y-5 card bordered bg-cardColor sm:max-w-xl sm:mx-auto rounded-2xl">
+  <div class="relative flex flex-col p-6 space-y-5 card bordered bg-base-100 sm:max-w-xl sm:mx-auto rounded-2xl">
     <div class="flex justify-between text-xs text-gray-400">
       <div class="flex items-center space-x-2">
         <img src="https://eu.ui-avatars.com/api/?name=Mike" class="w-8 rounded-full" />
@@ -11,31 +11,14 @@
     </div>
     <div>
       <div class="flex flex-col pr-10 space-y-5 overflow-auto text-sm text-gray-300 h-36 goal-text">
-        <div v-for="goal in user.currentWeeklyGoals" :key="goal.goal" class="flex items-center space-x-4">
-          <input @click="toggleGoal(goal.id)" type="checkbox" class="checkbox">
-          <div :class="{'line-through': goal.status === 'done' }">{{goal.goal}}</div>
-          <i @click="removeGoal(goal.id)" class="cursor-pointer las la-times text-error"></i>
-        </div>
+        <Goal v-for="goal in user.currentWeeklyGoals" :goal='goal' :key="goal.goal" />
         <div class="flex items-center w-3/4 p-2 space-x-4">
-          <input type="text" v-model="newGoalText" placeholder="add goal" class="w-3/4 input">
+          <input type="text" @keyup.enter="addGoal"  v-model="newGoalText" placeholder="add goal" class="w-3/4 input">
           <i
             @click="addGoal"
             class="text-3xl cursor-pointer las la-plus hover:text-purple-600 hover:scale-110"
           ></i>
         </div>
-
-        <!-- <div class="flex space-x-4">
-          <div class="w-5 h-5 bg-purple-300 rounded"></div>
-          <div>Finish UX/UI of Weekly Growth Goals app redesign</div>
-        </div>
-        <div class="flex space-x-4">
-          <div class="w-5 h-5 bg-purple-300 rounded"></div>
-          <div>Start an hour a day workout habit</div>
-        </div>
-        <div class="flex space-x-4">
-          <div class="w-5 h-5 bg-purple-300 rounded"></div>
-          <div>Finish UX/UI of Weekly Growth Goals app redesign</div>
-        </div> -->
       </div>
     </div>
     <div  class="flex justify-center space-x-3 status-bar">
@@ -75,17 +58,11 @@
 <script setup>
   import store from '../store'
   import {ref, computed} from 'vue'
+  import Goal from './goal/goal.vue'
   import {getMonday, getSunday, daysLeft} from '../utils/functions'
 
 
-
-  // const props = defineProps({
-  //   activeDay: Number
-  // })
-
   const activeDay = computed(() => store.getters.getDay)
-
-  
 
   const newGoalText = ref('')
 
@@ -102,15 +79,6 @@
     }
   }
 
-  function toggleGoal(goalId){
-    store.dispatch('toggleWeeklyGoal', goalId)
-    
-  }
-
-  function removeGoal(goalId){
-    store.dispatch('deleteWeeklyGoal', goalId)
-  }
-
   function checkDayStatus(day){
     // const _today = 4
     const _today = new Date().getDay()
@@ -124,16 +92,6 @@
       return 'bg-red-400'
     }
   }
-
-  // function daysLeft(){
-  //   const _today = new Date().getDay()
-  //   if (_today === 0){
-  //     return "1 day left" 
-  //   }
-  //   else {
-  //     return (8 - _today) + " days left"
-  //   }
-  // }
 </script>
 
 <style>

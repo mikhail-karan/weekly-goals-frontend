@@ -46,7 +46,11 @@ import router from './router'
 html,
 body,
 #app {
-  @apply h-full font-body;
+  @apply bg-neutral h-full font-body;
+}
+
+:root {
+  @apply bg-neutral !important;
 }
 
 h1,
