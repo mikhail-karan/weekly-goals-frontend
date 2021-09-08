@@ -1,8 +1,8 @@
 <template>
   <div class="flex items-center space-x-4">
     <input @click="toggleGoal(goal.id)" type="checkbox" class="checkbox">
-    <div @focusout='finishEdit' ref="goalInput" :contenteditable="contentEditable" @click="edit" :class="{'line-through': goal.status === 'done' }">{{goal.goal}}</div>
-    <i v-if="contentEditable" @click="removeGoal(goal.id)" class="cursor-pointer las la-times text-error"></i>
+    <div @focusout='finishEdit' ref="goalInput" :contenteditable="contentEditable" @click="edit" class="p-1 " :class="{'line-through': goal.status === 'done' }">{{goal.goal}} <span><i v-if="contentEditable" @click.stop.prevent="removeGoal(goal.id)" class="cursor-pointer las la-times text-error"></i></span></div>
+    
   </div>
 </template>
 
@@ -29,7 +29,10 @@ function edit(){
 
 function finishEdit(){
   contentEditable.value = false
-  console.log(goalInput.value.innerText)
+  if (goalInput.value){
+    console.log(goalInput.value.innerText)
+  }
+  
 }
 
 function toggleGoal(goalId){

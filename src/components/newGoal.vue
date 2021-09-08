@@ -9,46 +9,11 @@
       </div>
       <div class="flex items-center">{{daysLeft()}}</div>
     </div>
-    <div>
-      <div class="flex flex-col pr-10 space-y-5 overflow-auto text-sm text-gray-300 h-36 goal-text">
-        <Goal v-for="goal in user.currentWeeklyGoals" :goal='goal' :key="goal.goal" />
-        <div class="flex items-center w-3/4 p-2 space-x-4">
-          <input type="text" @keyup.enter="addGoal"  v-model="newGoalText" placeholder="add goal" class="w-3/4 input">
-          <i
-            @click="addGoal"
-            class="text-3xl cursor-pointer las la-plus hover:text-purple-600 hover:scale-110"
-          ></i>
-        </div>
-      </div>
-    </div>
+    <GoalCard />
     <div  class="flex justify-center space-x-3 status-bar">
-      <div :class="{'active-status': activeDay === 1}" @click="store.dispatch('changeDay', 1)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
-        <div class="day-ab">M</div>
-        <div :class="checkDayStatus(1)" class="w-6 h-3 rounded-full pill"></div>
-      </div>
-      <div :class="{'active-status': activeDay === 2}" @click="store.dispatch('changeDay', 2)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
-        <div class="day-ab">T</div>
-        <div :class="checkDayStatus(2)" class="w-6 h-3 rounded-full pill"></div>
-      </div>
-      <div :class="{'active-status': activeDay === 3}" @click="store.dispatch('changeDay', 3)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
-        <div class="day-ab">W</div>
-        <div :class="checkDayStatus(3)" class="w-6 h-3 rounded-full pill"></div>
-      </div>
-      <div :class="{'active-status': activeDay === 4}" @click="store.dispatch('changeDay', 4)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
-        <div class="day-ab">T</div>
-        <div :class="checkDayStatus(4)" class="w-6 h-3 rounded-full pill"></div>
-      </div>
-      <div :class="{'active-status': activeDay === 5}" @click="store.dispatch('changeDay', 5)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
-        <div class="day-ab">F</div>
-        <div :class="checkDayStatus(5)" class="w-6 h-3 rounded-full pill"></div>
-      </div>
-      <div :class="{'active-status': activeDay === 6}" @click="store.dispatch('changeDay', 6)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
-        <div class="day-ab">S</div>
-        <div :class="checkDayStatus(6)" class="w-6 h-3 rounded-full pill"></div>
-      </div>
-      <div :class="{'active-status': activeDay === 0}" @click="store.dispatch('changeDay', 0)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
-        <div class="day-ab">S</div>
-        <div :class="checkDayStatus(0)" class="w-6 h-3 rounded-full pill"></div>
+      <div v-for="status in days" :key="status" :class="{'active-status': activeDay === status.dayNum}" @click="store.dispatch('changeDay', status.dayNum)" class="flex flex-col items-center space-y-1 text-xs text-gray-400 cursor-pointer">
+        <div class="day-ab">{{status.day}}</div>
+        <div :class="checkDayStatus(status.dayNum)" class="w-6 h-3 rounded-full pill"></div>
       </div>
     </div>
   </div>
@@ -58,26 +23,45 @@
 <script setup>
   import store from '../store'
   import {ref, computed} from 'vue'
-  import Goal from './goal/goal.vue'
+  import GoalCard from './goal/GoalCard.vue'
   import {getMonday, getSunday, daysLeft} from '../utils/functions'
+
+  const days = [
+    {
+      dayNum: 1,
+      day: 'M'
+    },
+    {
+      dayNum: 2,
+      day: 'T'
+    },
+    {
+      dayNum: 3,
+      day: 'W'
+    },
+    {
+      dayNum: 4,
+      day: 'T'
+    },
+    {
+      dayNum: 5,
+      day: 'F'
+    },
+    {
+      dayNum: 6,
+      day: 'S'
+    },
+    {
+      dayNum: 0,
+      day: 'S'
+    },
+  ]
 
 
   const activeDay = computed(() => store.getters.getDay)
 
-  const newGoalText = ref('')
 
   const user = computed(() => store.getters.getUserNew)
-
-  function addGoal(){
-    if (newGoalText.value){
-      store.dispatch('addWeeklyGoal', {
-        id: Math.ceil(Math.random() * 10000),
-        goal: newGoalText.value,
-        status: 'created',
-      })
-      newGoalText.value = ''
-    }
-  }
 
   function checkDayStatus(day){
     // const _today = 4
