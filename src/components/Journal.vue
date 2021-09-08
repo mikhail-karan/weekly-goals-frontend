@@ -6,7 +6,7 @@
       <div @click.prevent.stop="deactivateWrite" class="card-body">
         <h2 class="card-title">Journal for {{daysOfTheWeek[activeDay]}}</h2>
         <div class="space-y-4" v-if="user.currentJournal[activeDay].journal.length > 0">
-          <div v-for="journal in user.currentJournal[activeDay].journal" :key="journal.id" class="py-6 card sm:py-12">
+          <div v-for="journal in user.currentJournal[activeDay].journal" :key="journal.id" class="py-6 card sm:py-12 bg-base-100">
             <div class="flex flex-row justify-end pr-6 text-xs text-gray-400">{{journal.date}}</div>
             <p class="p-6">{{journal.entry}}</p>
             <hr>
@@ -71,7 +71,3 @@
   }
 
 </script>
-
-<style>
-
-</style>
