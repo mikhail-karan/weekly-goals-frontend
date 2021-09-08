@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col space-y-4">
     
-    <div class="flex flex-col card lg:card-side bordered ">
+    <div class="flex flex-col card bg-base-100 lg:card-side bordered ">
       
       <div @click.prevent.stop="deactivateWrite" class="card-body">
         <h2 class="card-title">Journal for {{daysOfTheWeek[activeDay]}}</h2>
