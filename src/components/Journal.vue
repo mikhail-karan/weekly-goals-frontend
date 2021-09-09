@@ -6,11 +6,12 @@
       <div @click.prevent.stop="deactivateWrite" class="card-body">
         <h2 class="card-title">Journal for {{daysOfTheWeek[activeDay]}}</h2>
         <div class="space-y-4" v-if="user.currentJournal[activeDay].journal.length > 0">
-          <div v-for="journal in user.currentJournal[activeDay].journal" :key="journal.id" class="py-6 card sm:py-12 bg-base-100">
+          <!-- <div v-for="journal in user.currentJournal[activeDay].journal" :key="journal.id" class="py-6 card sm:py-12 bg-base-100">
             <div class="flex flex-row justify-end pr-6 text-xs text-gray-400">{{journal.date}}</div>
             <p class="p-6">{{journal.entry}}</p>
             <hr>
-          </div>
+          </div> -->
+          <JournalEntry v-for="journal in user.currentJournal[activeDay].journal" :key="journal.id" :journal="journal" />
           
         </div>
         
@@ -31,10 +32,13 @@
 <script setup>
   import store from '../store'
   import {ref, computed, nextTick} from 'vue'
+  import JournalEntry from './journal/JournalEntry.vue'
+
   const journalInput = ref(null)
 
-  const user = computed(()=>store.getters.getUserNew)
   const journalEntry = ref('')
+
+  const user = computed(()=>store.getters.getUserNew)
 
   const activeDay = computed(() => store.getters.getDay)
 
@@ -60,7 +64,8 @@
     if (journalEntry.value){
       store.dispatch('addJournalEntry', {
         day: activeDay.value,
-        entry: journalEntry.value
+        entry: journalEntry.value,
+        id: Math.ceil(Math.random() * 10000)
       })
       journalEntry.value = ''
     }

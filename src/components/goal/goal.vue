@@ -29,10 +29,10 @@ function edit(){
 
 function finishEdit(){
   contentEditable.value = false
+  // TODO: Persist edited weekly goal
   if (goalInput.value){
     console.log(goalInput.value.innerText)
   }
-  
 }
 
 function toggleGoal(goalId){

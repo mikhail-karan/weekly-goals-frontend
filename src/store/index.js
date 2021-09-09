@@ -86,11 +86,16 @@ const store = createStore({
     change_day(state, day){
       state.activeDay = day
     },
-    add_journal_entry(state, {day, entry}){
+    add_journal_entry(state, {day, entry, id }){
       state.userNew.currentJournal[day].journal.push({
         entry: entry,
-        date: new Date().toDateString()
+        date: new Date().toDateString(),
+        id: id
       })
+    },
+    delete_journal(state, {day, id}){
+      const journalIndex = state.userNew.currentJournal[day].journal.findIndex(_journal => _journal.id === id)
+      state.userNew.currentJournal[day].journal.splice(journalIndex, 1)
     },
     add_weekly_goal(state, goal){
       state.userNew.currentWeeklyGoals.push(goal)
@@ -131,6 +136,9 @@ const store = createStore({
     },
     addJournalEntry({commit}, {day, entry}){
       commit('add_journal_entry', {day, entry})
+    },
+    deleteJournal({commit}, {id, day}){
+      commit('delete_journal', {id, day})
     },
     addWeeklyGoal({commit}, goal){
       commit('add_weekly_goal', goal)
