@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center space-x-4">
     <input @click="toggleGoal(goal.id)" type="checkbox" class="checkbox">
-    <div @focusout='finishEdit' ref="goalInput" :contenteditable="contentEditable" @click="edit" class="p-1 " :class="{'line-through': goal.status === 'done' }">{{goal.goal}} <span><i v-if="contentEditable" @click.stop.prevent="removeGoal(goal.id)" class="ml-2 cursor-pointer las la-times text-error"></i></span></div>
+    <div @focusout='finishEdit(goal.id)' ref="goalInput" :contenteditable="contentEditable" @click="edit" class="p-1 " :class="{'line-through': goal.status === 'done' }">{{goal.goal}} <span><i v-if="contentEditable" @click.stop.prevent="removeGoal(goal.id)" class="ml-2 cursor-pointer las la-times text-error"></i></span></div>
     
   </div>
 </template>
@@ -27,11 +27,15 @@ function edit(){
   })
 }
 
-function finishEdit(){
+function finishEdit(id){
   contentEditable.value = false
   // TODO: Persist edited weekly goal
   if (goalInput.value){
     console.log(goalInput.value.innerText)
+    store.dispatch('editWeeklyGoal', {
+      id: id,
+      goal: goalInput.value.innerText
+    })
   }
 }
 
